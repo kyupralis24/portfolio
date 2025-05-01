@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ITC Limited Experience | Viom Kapur</title>
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .experience-header {
+            text-align: center;
+            padding: 4rem 0;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+        }
+
+        .experience-icons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .experience-icon {
+            font-size: 3rem;
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+
+        .experience-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .experience-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 4rem 0;
+        }
+
+        .experience-meta {
+            display: flex;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .meta-item i {
+            color: var(--primary-color);
+        }
+
+        .company-logo {
+            width: 120px;
+            height: auto;
+            margin: 1rem 0;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            margin-top: 2rem;
+            transition: var(--transition);
+        }
+
+        .back-link:hover {
+            color: var(--secondary-color);
+        }
+
+        .content-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .content-box:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .content-box h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .tech-tag {
+            background: rgba(var(--primary-color-rgb), 0.1);
+            color: var(--primary-color);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="../index.html" class="logo">VK</a>
+            <div class="nav-links">
+                <a href="../index.html#home">Home</a>
+                <a href="../index.html#about">About</a>
+                <a href="../index.html#projects">Projects</a>
+                <a href="../index.html#contact">Contact</a>
+            </div>
+            <button class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Experience Header -->
+    <section class="experience-header">
+        <div class="container">
+            <h1>ITC Limited</h1>
+            <p class="tagline">SAP Intern</p>
+            <div class="experience-icons">
+                <i class="fas fa-robot experience-icon" title="AI Development"></i>
+                <i class="fas fa-database experience-icon" title="Data Processing"></i>
+                <i class="fas fa-cloud experience-icon" title="AWS"></i>
+                <i class="fas fa-code experience-icon" title="Programming"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Content -->
+    <main class="experience-content">
+        <div class="container">
+            <div class="experience-meta">
+                <div class="meta-item">
+                    <i class="fas fa-calendar"></i>
+                    <span>June 2023 - July 2023</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Gurugram, India (On-Site)</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-building"></i>
+                    <span>ITC Limited</span>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h2>Role Overview</h2>
+                <p>As a SAP Intern at ITC Limited, I worked on developing AI-powered solutions to automate and optimize
+                    various business processes. My role focused on building custom AI models and software solutions to
+                    enhance operational efficiency.</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">MySQL</span>
+                    <span class="tech-tag">AWS</span>
+                    <span class="tech-tag">AI/ML</span>
+                    <span class="tech-tag">Image Processing</span>
+                    <span class="tech-tag">Data Processing</span>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h2>Key Achievements</h2>
+                <ul>
+                    <li>Developed custom AI models for image processing, achieving 75% accuracy in automated menu card
+                        data extraction</li>
+                    <li>Created CV parsing software to streamline HR data organization, significantly reducing
+                        processing time</li>
+                    <li>Implemented AWS infrastructure for efficient data storage and processing</li>
+                    <li>Successfully integrated Python and MySQL for robust data management solutions</li>
+                </ul>
+            </div>
+
+            <div class="content-box">
+                <h2>Technical Implementation</h2>
+                <p>The internship involved several key technical components:</p>
+                <ul>
+                    <li>Development of AI models for image recognition and data extraction</li>
+                    <li>Database design and implementation using MySQL</li>
+                    <li>AWS cloud infrastructure setup and management</li>
+                    <li>Python-based software development for process automation</li>
+                    <li>Integration of various technologies for seamless workflow</li>
+                </ul>
+            </div>
+
+            <div class="content-box">
+                <h2>Skills Developed</h2>
+                <ul>
+                    <li>AI/ML model development and implementation</li>
+                    <li>Database management and optimization</li>
+                    <li>Cloud computing with AWS</li>
+                    <li>Software development and integration</li>
+                    <li>Process automation and optimization</li>
+                </ul>
+            </div>
+
+            <a href="../index.html#experience" class="back-link">
+                <i class="fas fa-arrow-left"></i>
+                Back to Experience
+            </a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2024 Viom Kapur. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="https://www.linkedin.com/in/viom-kapur-93434621b/" target="_blank"
+                        rel="noopener noreferrer" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="mailto:viomkapur@gmail.com" aria-label="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../scripts/main.js"></script>
+</body>
+
+</html>

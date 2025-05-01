@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viom Kapur | Portfolio</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --primary-color-rgb: 37, 99, 235;
+            --secondary-color: #1d4ed8;
+            --text-color: #1f2937;
+            --bg-color: #ffffff;
+            --border-color: #e5e7eb;
+            --cursor-color: #2563eb;
+        }
+
+        * {
+            cursor: none;
+        }
+
+        .cursor {
+            width: 20px;
+            height: 20px;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+        }
+
+        .cursor::before {
+            content: '';
+            position: absolute;
+            width: 2px;
+            height: 20px;
+            background: var(--cursor-color);
+            animation: blink 1s infinite;
+        }
+
+        .cursor::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 2px;
+            background: var(--cursor-color);
+            top: 9px;
+            left: 0;
+        }
+
+        .cursor.click {
+            animation: click 0.2s ease;
+        }
+
+        .cursor.hover {
+            transform: scale(1.5);
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
+        }
+
+        @keyframes click {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(0.8);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .click-effect {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--cursor-color);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: ripple 0.6s ease-out;
+            opacity: 0;
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: scale(0.5);
+                opacity: 0.5;
+            }
+
+            100% {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('assets/profile/viom_cudi.jpg') center/cover no-repeat;
+            filter: blur(4px);
+            transform: scale(1.1);
+            z-index: -1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            color: white;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .profile-photo {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 2rem;
+            border: 4px solid white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .profile-photo:hover {
+            transform: scale(1.02);
+        }
+
+        .company-logos {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .company-logo {
+            width: 100px;
+            height: auto;
+            transition: all 0.3s ease;
+            filter: grayscale(100%);
+            opacity: 0.8;
+        }
+
+        .company-logo:hover {
+            transform: scale(1.05);
+            filter: grayscale(0%);
+            opacity: 1;
+        }
+
+        .project-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.5rem;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .project-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+            border-radius: 0.5rem 0.5rem 0 0;
+        }
+
+        .project-card:hover img {
+            transform: scale(1.02);
+        }
+
+        .project-card-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-link {
+            display: inline-block;
+            margin-top: auto;
+            padding: 0.75rem 1.5rem;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 0.25rem;
+            transition: all 0.3s ease;
+            align-self: flex-start;
+        }
+
+        .project-link:hover {
+            background: var(--secondary-color);
+        }
+
+        .skill-card {
+            position: relative;
+            overflow: hidden;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        /* Programming Animation */
+        .skill-card[data-skill="programming"]::before {
+            background:
+                linear-gradient(45deg, transparent 48%, rgba(var(--primary-color-rgb), 0.1) 49%, transparent 51%),
+                linear-gradient(-45deg, transparent 48%, rgba(var(--primary-color-rgb), 0.1) 49%, transparent 51%);
+            background-size: 20px 20px;
+            animation: codeGrid 2s linear infinite;
+        }
+
+        @keyframes codeGrid {
+            0% {
+                background-position: 0 0;
+            }
+
+            100% {
+                background-position: 20px 20px;
+            }
+        }
+
+        /* Data Analysis Animation */
+        .skill-card[data-skill="data"]::before {
+            background:
+                radial-gradient(circle at center, transparent 0%, rgba(var(--primary-color-rgb), 0.1) 50%, transparent 100%);
+            animation: dataPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes dataPulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+
+            50% {
+                transform: scale(1.2);
+                opacity: 0.3;
+            }
+        }
+
+        /* AI Models Animation */
+        .skill-card[data-skill="ai"]::before {
+            background:
+                linear-gradient(90deg, transparent 0%, rgba(var(--primary-color-rgb), 0.1) 50%, transparent 100%);
+            animation: neuralFlow 2s linear infinite;
+        }
+
+        @keyframes neuralFlow {
+            0% {
+                background-position: -100% 0;
+            }
+
+            100% {
+                background-position: 100% 0;
+            }
+        }
+
+        /* Web Development Animation */
+        .skill-card[data-skill="web"]::before {
+            background:
+                repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(var(--primary-color-rgb), 0.1) 10px, rgba(var(--primary-color-rgb), 0.1) 20px);
+            animation: webGrid 2s linear infinite;
+        }
+
+        @keyframes webGrid {
+            0% {
+                background-position: 0 0;
+            }
+
+            100% {
+                background-position: 20px 20px;
+            }
+        }
+
+        /* SQL & AWS Animation */
+        .skill-card[data-skill="database"]::before {
+            background:
+                radial-gradient(circle at center, transparent 0%, rgba(var(--primary-color-rgb), 0.1) 50%, transparent 100%),
+                repeating-linear-gradient(0deg, transparent, transparent 5px, rgba(var(--primary-color-rgb), 0.05) 5px, rgba(var(--primary-color-rgb), 0.05) 10px);
+            animation: dbPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes dbPulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 0.3;
+            }
+        }
+
+        /* Object Detection Animation */
+        .skill-card[data-skill="object"]::before {
+            background:
+                radial-gradient(circle at center, transparent 0%, rgba(var(--primary-color-rgb), 0.1) 50%, transparent 100%),
+                repeating-conic-gradient(from 0deg, transparent 0deg 10deg, rgba(var(--primary-color-rgb), 0.05) 10deg 20deg);
+            animation: objectScan 2s linear infinite;
+        }
+
+        @keyframes objectScan {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* API Integration Animation */
+        .skill-card[data-skill="api"]::before {
+            background:
+                linear-gradient(90deg, transparent 0%, rgba(var(--primary-color-rgb), 0.1) 50%, transparent 100%),
+                linear-gradient(0deg, transparent 0%, rgba(var(--primary-color-rgb), 0.1) 50%, transparent 100%);
+            animation: apiConnect 2s ease-in-out infinite;
+        }
+
+        @keyframes apiConnect {
+
+            0%,
+            100% {
+                background-size: 100% 2px, 2px 100%;
+            }
+
+            50% {
+                background-size: 100% 4px, 4px 100%;
+            }
+        }
+
+        /* Product Design Animation */
+        .skill-card[data-skill="product"]::before {
+            background:
+                repeating-linear-gradient(45deg, transparent, transparent 5px, rgba(var(--primary-color-rgb), 0.1) 5px, rgba(var(--primary-color-rgb), 0.1) 10px);
+            animation: designFlow 2s linear infinite;
+        }
+
+        @keyframes designFlow {
+            0% {
+                background-position: 0 0;
+            }
+
+            100% {
+                background-position: 10px 10px;
+            }
+        }
+
+        /* Financial Analysis Animation */
+        .skill-card[data-skill="finance"]::before {
+            background:
+                linear-gradient(45deg, transparent 0%, rgba(var(--primary-color-rgb), 0.1) 50%, transparent 100%);
+            animation: financeWave 2s ease-in-out infinite;
+        }
+
+        @keyframes financeWave {
+
+            0%,
+            100% {
+                transform: translateX(0) scaleY(1);
+            }
+
+            50% {
+                transform: translateX(10px) scaleY(1.2);
+            }
+        }
+
+        .skill-card:hover::before {
+            opacity: 1;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .skill-card i {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding: 1.5rem;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .timeline-logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: white;
+            padding: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .contact-form {
+            background: var(--bg-color);
+            padding: 2rem;
+            border-radius: 0.5rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 0.25rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(var(--primary-color-rgb), 0.1);
+        }
+
+        .submit-btn {
+            background: var(--primary-color);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: var(--secondary-color);
+        }
+
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -0.5rem;
+            left: 0;
+            width: 3rem;
+            height: 2px;
+            background: var(--primary-color);
+        }
+
+        .tech-indicator {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.25rem 0.5rem;
+            background: rgba(var(--primary-color-rgb), 0.1);
+            color: var(--primary-color);
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .experience {
+            padding: 4rem 0;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        }
+
+        .experience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .experience-card {
+            position: relative;
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .experience-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .experience-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.05) 0%, rgba(29, 78, 216, 0.05) 100%);
+            border-radius: 1rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .experience-card:hover::before {
+            opacity: 1;
+        }
+
+        .experience-card .company-logo {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease;
+            padding: 1rem;
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .experience-card:hover .company-logo {
+            transform: scale(1.1);
+        }
+
+        .experience-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .experience-card .role {
+            color: var(--text-color);
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .experience-card .duration {
+            color: var(--text-color);
+            opacity: 0.8;
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .experience-card .location {
+            color: var(--text-color);
+            opacity: 0.8;
+            font-size: 0.875rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .experience-card .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+            margin-top: auto;
+        }
+
+        .experience-card .skill-tag {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary-color);
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .experience-card:hover .skill-tag {
+            background: var(--primary-color);
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cursor"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="#" class="logo">VK</a>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <div class="dropdown">
+                    <a href="#projects">Projects</a>
+                    <div class="dropdown-content">
+                        <a href="projects/credit-card-fraud.html">Credit Card Fraud Detection</a>
+                        <a href="projects/dlf-analysis.html">DLF Financial Analysis</a>
+                        <a href="projects/tcns-strategy.html">TCNS Future Strategy</a>
+                        <a href="projects/trezi-memo.html">Trezi Investment Memo</a>
+                        <a href="projects/tips-thesis.html">Tips Music Investment Thesis</a>
+                    </div>
+                </div>
+                <a href="#contact">Contact</a>
+            </div>
+            <button class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <img src="assets/profile/viom-photo.jpg" alt="Viom Kapur" class="profile-photo">
+                <h1>Viom Kapur</h1>
+                <p class="tagline">Computer Science & Finance Student | AI Automation Engineer | Consultant</p>
+                <div class="company-logos">
+                    <img src="assets/logos/itc-logo.png" alt="ITC Limited Logo" class="company-logo">
+                    <img src="assets/logos/Pragmana Foundation Logo.png" alt="Pragmana Foundation Logo"
+                        class="company-logo">
+                    <img src="assets/logos/images-2.png" alt="ITC Limited Logo" class="company-logo">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2>About Me</h2>
+            <div class="profile-content">
+                <p>Computer Science major with Entrepreneurship/Finance minor at Ashoka University (Batch of 2025).
+                    Experienced AI Automation Engineer and Consultant, skilled in data analysis, financial modeling, and
+                    tech innovation.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Competencies -->
+    <section class="competencies">
+        <div class="container">
+            <h2 class="section-title">Key Competencies</h2>
+            <div class="skills-grid">
+                <div class="skill-card" data-skill="programming">
+                    <i class="fas fa-code"></i>
+                    <h3>Advanced Programming</h3>
+                </div>
+                <div class="skill-card" data-skill="data">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Data Analysis</h3>
+                </div>
+                <div class="skill-card" data-skill="ai">
+                    <i class="fas fa-brain"></i>
+                    <h3>Custom AI Models</h3>
+                </div>
+                <div class="skill-card" data-skill="web">
+                    <i class="fas fa-laptop-code"></i>
+                    <h3>Web Development</h3>
+                </div>
+                <div class="skill-card" data-skill="database">
+                    <i class="fas fa-database"></i>
+                    <h3>SQL & AWS Management</h3>
+                </div>
+                <div class="skill-card" data-skill="object">
+                    <i class="fas fa-robot"></i>
+                    <h3>Custom Object Detection AI</h3>
+                </div>
+                <div class="skill-card" data-skill="api">
+                    <i class="fas fa-plug"></i>
+                    <h3>API Module Integration</h3>
+                </div>
+                <div class="skill-card" data-skill="product">
+                    <i class="fas fa-cubes"></i>
+                    <h3>Product Design & Development</h3>
+                </div>
+                <div class="skill-card" data-skill="finance">
+                    <i class="fas fa-calculator"></i>
+                    <h3>Accounting & Financial Analysis</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Professional Experience -->
+    <section class="experience">
+        <div class="container">
+            <h2 class="section-title">Professional Experience</h2>
+            <div class="experience-grid">
+                <a href="experience/bdo.html" class="experience-card">
+                    <img src="assets/logos/bdo-logo.jpg" alt="BDO Logo" class="company-logo">
+                    <h3>BDO India LLP</h3>
+                    <p class="role">Deal Value Creation Intern</p>
+                    <p class="duration">Jul 2024 - Sep 2024</p>
+                    <p class="location">Gurugram, India (Hybrid)</p>
+                    <div class="skills">
+                        <span class="skill-tag">Portfolio Management</span>
+                        <span class="skill-tag">Due Diligence</span>
+                        <span class="skill-tag">Market Analysis</span>
+                    </div>
+                </a>
+
+                <a href="experience/pragmana-foundation.html" class="experience-card">
+                    <img src="assets/logos/Pragmana Foundation Logo.png" alt="Pragmana Foundation Logo"
+                        class="company-logo">
+                    <h3>Pragmana Foundation</h3>
+                    <p class="role">Founder's Office Intern</p>
+                    <p class="duration">Jun 2024 - Dec 2024</p>
+                    <p class="location">Gurugram, India (Hybrid)</p>
+                    <div class="skills">
+                        <span class="skill-tag">Product Design</span>
+                        <span class="skill-tag">Financial Planning</span>
+                        <span class="skill-tag">Web Development</span>
+                    </div>
+                </a>
+
+                <a href="experience/itc.html" class="experience-card">
+                    <img src="assets/logos/itc-logo.png" alt="ITC Limited Logo" class="company-logo">
+                    <h3>ITC Limited</h3>
+                    <p class="role">SAP Intern</p>
+                    <p class="duration">Jun 2023 - Jul 2023</p>
+                    <p class="location">Gurugram, India (On-Site)</p>
+                    <div class="skills">
+                        <span class="skill-tag">AI Development</span>
+                        <span class="skill-tag">Data Processing</span>
+                        <span class="skill-tag">AWS</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <span class="tech-indicator">AI/ML</span>
+                    <img src="assets/projects/thumbnails/credit-card-fraud-thumbnail.jpg"
+                        alt="Credit Card Fraud Detection"
+                        onerror="this.src='assets/projects/thumbnails/default-thumbnail.jpg'">
+                    <div class="project-card-content">
+                        <h3>Credit Card Fraud Detection</h3>
+                        <p>XGBoost model with 46% detection rate (267x improvement)</p>
+                        <a href="projects/credit-card-fraud.html" class="project-link">View Project</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="assets/projects/thumbnails/dlf-analysis-thumbnail.jpg" alt="DLF Financial Analysis"
+                        onerror="this.src='assets/projects/thumbnails/default-thumbnail.jpg'">
+                    <div class="project-card-content">
+                        <h3>DLF Financial Analysis</h3>
+                        <p>Comprehensive investment thesis for DLF</p>
+                        <a href="projects/dlf-analysis.html" class="project-link">View Project</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="assets/projects/thumbnails/tcns-strategy-thumbnail.jpg" alt="TCNS Future Strategy"
+                        onerror="this.src='assets/projects/thumbnails/default-thumbnail.jpg'">
+                    <div class="project-card-content">
+                        <h3>TCNS Future Strategy Report</h3>
+                        <p>Financial evaluation and investment recommendations</p>
+                        <a href="projects/tcns-strategy.html" class="project-link">View Project</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="assets/projects/thumbnails/trezi-memo-thumbnail.jpg" alt="Trezi Investment Memo"
+                        onerror="this.src='assets/projects/thumbnails/default-thumbnail.jpg'">
+                    <div class="project-card-content">
+                        <h3>Trezi Investment Memo</h3>
+                        <p>Investment thesis for YourNest Capital</p>
+                        <a href="projects/trezi-memo.html" class="project-link">View Project</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="assets/projects/thumbnails/tips-thesis-thumbnail.jpg" alt="Tips Music Investment Thesis"
+                        onerror="this.src='assets/projects/thumbnails/default-thumbnail.jpg'">
+                    <div class="project-card-content">
+                        <h3>Tips Music Investment Thesis</h3>
+                        <p>Comprehensive analysis and recommendations</p>
+                        <a href="projects/tips-thesis.html" class="project-link">View Project</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Get in Touch</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <a href="mailto:viomkapur@gmail.com" class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>viomkapur@gmail.com</span>
+                    </a>
+                    <a href="tel:+919810482440" class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+91-9810482440</span>
+                    </a>
+                    <a href="https://www.linkedin.com/in/viom-kapur-93434621b/" target="_blank"
+                        rel="noopener noreferrer" class="contact-item">
+                        <i class="fab fa-linkedin"></i>
+                        <span>LinkedIn Profile</span>
+                    </a>
+                </div>
+                <form id="contact-form" class="contact-form">
+                    <div class="form-group">
+                        <input type="text" id="name" name="name" required placeholder="Your Name">
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" name="email" required placeholder="Your Email">
+                    </div>
+                    <div class="form-group">
+                        <textarea id="message" name="message" required placeholder="Your Message"></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2024 Viom Kapur. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="https://www.linkedin.com/in/viom-kapur-93434621b/" target="_blank"
+                        rel="noopener noreferrer" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="mailto:viomkapur@gmail.com" aria-label="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="scripts/main.js"></script>
+    <script>
+        // Cursor movement
+        const cursor = document.querySelector('.cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        // Click animation
+        document.addEventListener('click', (e) => {
+            cursor.classList.add('click');
+            setTimeout(() => cursor.classList.remove('click'), 200);
+
+            // Create ripple effect
+            const ripple = document.createElement('div');
+            ripple.className = 'click-effect';
+            ripple.style.left = e.clientX - 10 + 'px';
+            ripple.style.top = e.clientY - 10 + 'px';
+            document.body.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 600);
+        });
+
+        // Hover effect
+        const interactiveElements = document.querySelectorAll('a, button, .project-card, .skill-card, .timeline-item');
+        interactiveElements.forEach(element => {
+            element.addEventListener('mouseenter', () => {
+                cursor.classList.add('hover');
+            });
+            element.addEventListener('mouseleave', () => {
+                cursor.classList.remove('hover');
+            });
+        });
+
+        // Add typing effect
+        const tagline = document.querySelector('.terminal-text');
+        if (tagline) {
+            const text = tagline.textContent;
+            tagline.textContent = '';
+            let i = 0;
+
+            function typeWriter() {
+                if (i < text.length) {
+                    tagline.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 50);
+                }
+            }
+
+            typeWriter();
+        }
+    </script>
+</body>
+
+</html>

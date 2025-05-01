@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tips Music Investment Thesis | Viom Kapur</title>
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .project-header {
+            text-align: center;
+            padding: 4rem 0;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+        }
+
+        .project-icons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .project-icon {
+            font-size: 3rem;
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+
+        .project-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .project-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 4rem 0;
+        }
+
+        .project-meta {
+            display: flex;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .meta-item i {
+            color: var(--primary-color);
+        }
+
+        .company-logo {
+            width: 120px;
+            height: auto;
+            margin: 1rem 0;
+        }
+
+        .project-image {
+            width: 100%;
+            max-width: 800px;
+            margin: 2rem auto;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            margin-top: 2rem;
+            transition: var(--transition);
+        }
+
+        .back-link:hover {
+            color: var(--secondary-color);
+        }
+
+        .project-details {
+            background: #fff;
+            border-radius: 1rem;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-details h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .project-details ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .project-details li {
+            margin: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .project-details li:before {
+            content: "•";
+            color: var(--primary-color);
+            position: absolute;
+            left: 0;
+        }
+
+        .interactive-section {
+            margin: 2rem 0;
+            padding: 2rem;
+            background: #f8f9fa;
+            border-radius: 1rem;
+        }
+
+        .presentation-preview {
+            width: 100%;
+            height: 400px;
+            border: none;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .code-preview {
+            background: #282c34;
+            color: #abb2bf;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+
+        .download-section {
+            display: flex;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .download-btn:hover {
+            background: var(--secondary-color);
+        }
+
+        .profile-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1.5rem;
+            border: 4px solid white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: var(--border-color);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            width: 50%;
+            padding: 1.5rem;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .timeline-item:nth-child(odd) {
+            margin-left: 0;
+            margin-right: auto;
+        }
+
+        .timeline-item:nth-child(even) {
+            margin-left: auto;
+            margin-right: 0;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 20px;
+            height: 20px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            transform: translateY(-50%);
+        }
+
+        .timeline-item:nth-child(odd)::before {
+            right: -10px;
+        }
+
+        .timeline-item:nth-child(even)::before {
+            left: -10px;
+        }
+
+        .timeline-date {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .code-snippet {
+            background: #1e1e1e;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .code-snippet pre {
+            margin: 0;
+            color: #d4d4d4;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+
+        .code-snippet .language {
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 0.25rem 0.75rem;
+            background: rgba(255, 255, 255, 0.1);
+            color: #d4d4d4;
+            font-size: 0.75rem;
+            border-radius: 0.25rem;
+        }
+
+        .code-snippet .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            padding: 0.25rem 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            color: #d4d4d4;
+            border: none;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            font-size: 0.75rem;
+            transition: all 0.3s ease;
+        }
+
+        .code-snippet .copy-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .code-snippet .copy-btn.copied {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .code-snippets-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .code-snippet-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .code-snippet-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .code-snippet-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .code-snippet-card p {
+            color: var(--text-color);
+            margin-bottom: 1rem;
+        }
+
+        .content-box {
+            margin-bottom: 2rem;
+        }
+
+        .pdf-viewer {
+            position: relative;
+            width: 100%;
+            height: 600px;
+            margin: 2rem 0;
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            overflow: hidden;
+            background: white;
+        }
+
+        .pdf-viewer iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .pdf-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .pdf-navigation {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .pdf-btn {
+            padding: 0.75rem 1.5rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .pdf-btn:hover {
+            background: var(--secondary-color);
+        }
+
+        .pdf-page-info {
+            color: var(--text-color);
+            font-size: 0.875rem;
+            padding: 0.5rem 1rem;
+            background: white;
+            border-radius: 0.25rem;
+        }
+
+        .download-btn {
+            background: var(--success-color);
+        }
+
+        .download-btn:hover {
+            background: var(--success-color-dark);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="../index.html" class="logo">VK</a>
+            <div class="nav-links">
+                <a href="../index.html#home">Home</a>
+                <a href="../index.html#about">About</a>
+                <div class="dropdown">
+                    <a href="../index.html#projects">Projects</a>
+                    <div class="dropdown-content">
+                        <a href="credit-card-fraud.html">Credit Card Fraud Detection</a>
+                        <a href="dlf-analysis.html">DLF Financial Analysis</a>
+                        <a href="tcns-strategy.html">TCNS Future Strategy</a>
+                        <a href="trezi-memo.html">Trezi Investment Memo</a>
+                        <a href="tips-thesis.html">Tips Music Investment Thesis</a>
+                    </div>
+                </div>
+                <a href="../index.html#contact">Contact</a>
+            </div>
+            <button class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Project Header -->
+    <section class="project-header">
+        <div class="container">
+            <h1>Tips Music Investment Thesis</h1>
+            <p class="tagline">Comprehensive analysis and recommendations</p>
+            <div class="project-icons">
+                <i class="fas fa-music project-icon" title="Music Industry"></i>
+                <i class="fas fa-chart-line project-icon" title="Market Analysis"></i>
+                <i class="fas fa-file-invoice-dollar project-icon" title="Financial Analysis"></i>
+                <i class="fas fa-lightbulb project-icon" title="Strategic Insights"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Content -->
+    <main class="project-content">
+        <div class="container">
+            <div class="project-meta">
+                <div class="meta-item">
+                    <i class="fas fa-calendar"></i>
+                    <span>2023</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-building"></i>
+                    <span>YourNest Capital</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Market Research, Financial Analysis, Investment Strategy</span>
+                </div>
+            </div>
+
+            <div class="project-details">
+                <h2>Project Overview</h2>
+                <p>This investment thesis provides a detailed analysis of Tips Music, one of India's leading music
+                    companies, and the broader Indian music industry. The study evaluates market trends, competitive
+                    dynamics, and growth opportunities in the digital music space.</p>
+
+                <h3>Professional Context</h3>
+                <p>Conducted during my tenure at YourNest Capital, this project was part of our firm's initiative to
+                    explore opportunities in India's growing digital entertainment sector. The analysis contributed to
+                    our firm's understanding of the music industry's transformation and potential investment
+                    opportunities.</p>
+            </div>
+
+            <div class="project-details">
+                <h2>Research Methodology</h2>
+                <ul>
+                    <li>Industry analysis and market sizing</li>
+                    <li>Competitor benchmarking</li>
+                    <li>Financial statement analysis</li>
+                    <li>Consumer behavior research</li>
+                    <li>Technology trend assessment</li>
+                    <li>Regulatory environment review</li>
+                </ul>
+            </div>
+
+            <div class="interactive-section">
+                <h2>Key Insights</h2>
+                <p>The analysis uncovered several important trends and opportunities:</p>
+                <ul>
+                    <li>Rapid growth in digital music consumption</li>
+                    <li>Increasing smartphone penetration driving music streaming</li>
+                    <li>Strong regional music market potential</li>
+                    <li>Emerging monetization models in the industry</li>
+                    <li>Strategic partnerships and licensing opportunities</li>
+                </ul>
+
+                <div class="download-section">
+                    <a href="../assets/projects/tips-thesis-presentation.pdf" class="download-btn" download>
+                        <i class="fas fa-file-pdf"></i>
+                        Download Full Presentation
+                    </a>
+                    <a href="../assets/projects/tips-thesis-report.pdf" class="download-btn" download>
+                        <i class="fas fa-file-alt"></i>
+                        Download Detailed Report
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-details">
+                <h2>Investment Considerations</h2>
+                <p>The thesis outlined key factors for investment evaluation:</p>
+                <ul>
+                    <li>Company's content library and IP portfolio</li>
+                    <li>Digital transformation initiatives</li>
+                    <li>Revenue diversification strategies</li>
+                    <li>Market positioning and competitive advantages</li>
+                    <li>Growth potential and valuation metrics</li>
+                </ul>
+            </div>
+
+            <div class="interactive-section">
+                <h2>Project Deliverables</h2>
+                <h3>Presentation Preview</h3>
+                <iframe src="../assets/projects/tips-thesis-presentation.pdf" class="presentation-preview"></iframe>
+
+                <h3>Key Analysis Code</h3>
+                <div class="code-preview">
+                    <pre><code>// Market Size Calculation
+function calculateMarketSize(data) {
+    const baseYear = 2023;
+    const growthRate = 0.15; // 15% CAGR
+    const currentSize = data.currentSize;
+    
+    return {
+        current: currentSize,
+        projected: currentSize * Math.pow(1 + growthRate, 5)
+    };
+}
+
+// Revenue Projection Model
+function projectRevenue(metrics) {
+    const { userBase, arpu, growthRate } = metrics;
+    return userBase * arpu * (1 + growthRate);
+}</code></pre>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h2>Project Timeline</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-date">Week 1</div>
+                        <h3>Industry Analysis</h3>
+                        <p>Analyzed music industry trends and digital transformation</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">Week 2</div>
+                        <h3>Company Evaluation</h3>
+                        <p>Evaluated Tips Music's business model and competitive position</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">Week 3</div>
+                        <h3>Financial Analysis</h3>
+                        <p>Conducted detailed financial analysis and projections</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">Week 4</div>
+                        <h3>Investment Recommendation</h3>
+                        <p>Prepared investment thesis and recommendations</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h2>Code Snippets</h2>
+                <div class="code-snippets-grid">
+                    <div class="code-snippet-card">
+                        <h3>Streaming Revenue Analysis</h3>
+                        <p>Calculation of streaming revenue and growth metrics</p>
+                        <div class="code-snippet">
+                            <span class="language">Python</span>
+                            <button class="copy-btn">Copy</button>
+                            <pre><code>def calculate_streaming_metrics(streams, price_per_stream, growth_rate):
+    # Calculate monthly revenue
+    monthly_revenue = streams * price_per_stream
+    
+    # Project future streams
+    projected_streams = []
+    current_streams = streams
+    
+    for month in range(12):
+        current_streams *= (1 + growth_rate)
+        projected_streams.append(current_streams)
+    
+    # Calculate projected revenue
+    projected_revenue = [s * price_per_stream for s in projected_streams]
+    
+    return {
+        'current_revenue': monthly_revenue,
+        'projected_streams': projected_streams,
+        'projected_revenue': projected_revenue,
+        'total_projected_revenue': sum(projected_revenue)
+    }</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="code-snippet-card">
+                        <h3>Market Share Analysis</h3>
+                        <p>Analysis of market share and competitive position</p>
+                        <div class="code-snippet">
+                            <span class="language">Python</span>
+                            <button class="copy-btn">Copy</button>
+                            <pre><code>def analyze_market_share(company_data, market_data):
+    # Calculate market share
+    market_share = company_data['revenue'] / market_data['total_revenue']
+    
+    # Calculate growth relative to market
+    market_growth = market_data['growth_rate']
+    company_growth = company_data['growth_rate']
+    relative_growth = company_growth / market_growth
+    
+    # Calculate competitive position
+    position = {
+        'market_share': market_share,
+        'relative_growth': relative_growth,
+        'market_rank': len([x for x in market_data['competitors'] 
+                          if x['revenue'] > company_data['revenue']]) + 1
+    }
+    
+    return position</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="code-snippet-card">
+                        <h3>ROI Calculation</h3>
+                        <p>Investment return analysis with multiple scenarios</p>
+                        <div class="code-snippet">
+                            <span class="language">Python</span>
+                            <button class="copy-btn">Copy</button>
+                            <pre><code>def calculate_roi(investment, cash_flows, discount_rate):
+    # Calculate NPV
+    npv = sum(cf / (1 + discount_rate) ** i 
+             for i, cf in enumerate(cash_flows))
+    
+    # Calculate ROI
+    roi = (npv - investment) / investment
+    
+    # Calculate payback period
+    cumulative_cf = np.cumsum(cash_flows)
+    payback = np.argmax(cumulative_cf >= investment)
+    
+    return {
+        'npv': npv,
+        'roi': roi,
+        'payback_period': payback,
+        'irr': np.irr([-investment] + cash_flows)
+    }</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h2>Investment Thesis</h2>
+                <div class="pdf-viewer">
+                    <iframe src="../assets/projects/pdfs/tips-thesis.pdf#toolbar=0&view=FitH" frameborder="0"></iframe>
+                </div>
+                <div class="pdf-controls">
+                    <div class="pdf-navigation">
+                        <button class="pdf-btn" onclick="prevPage()">
+                            <i class="fas fa-chevron-left"></i>
+                            Previous
+                        </button>
+                        <span class="pdf-page-info">Page <span id="current-page">1</span> of <span
+                                id="total-pages">1</span></span>
+                        <button class="pdf-btn" onclick="nextPage()">
+                            Next
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    <button class="pdf-btn download-btn" onclick="downloadPDF()">
+                        <i class="fas fa-download"></i>
+                        Download PDF
+                    </button>
+                </div>
+            </div>
+
+            <a href="../index.html#projects" class="back-link">
+                <i class="fas fa-arrow-left"></i>
+                Back to Projects
+            </a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2024 Viom Kapur. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="https://www.linkedin.com/in/viom-kapur-93434621b/" target="_blank"
+                        rel="noopener noreferrer" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="mailto:viomkapur@gmail.com" aria-label="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../scripts/main.js"></script>
+    <script>
+        // Code snippet copy functionality
+        document.querySelectorAll('.copy-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const code = btn.parentElement.querySelector('code').textContent;
+                navigator.clipboard.writeText(code).then(() => {
+                    btn.textContent = 'Copied!';
+                    btn.classList.add('copied');
+                    setTimeout(() => {
+                        btn.textContent = 'Copy';
+                        btn.classList.remove('copied');
+                    }, 2000);
+                });
+            });
+        });
+
+        // PDF Viewer functionality
+        let currentPage = 1;
+        const totalPages = 10; // Update this with actual number of pages
+        const pdfViewer = document.querySelector('.pdf-viewer iframe');
+
+        function updatePageInfo() {
+            document.getElementById('current-page').textContent = currentPage;
+            document.getElementById('total-pages').textContent = totalPages;
+            pdfViewer.src = `../assets/projects/pdfs/tips-thesis.pdf#page=${currentPage}&toolbar=0&view=FitH`;
+        }
+
+        function prevPage() {
+            if (currentPage > 1) {
+                currentPage--;
+                updatePageInfo();
+            }
+        }
+
+        function nextPage() {
+            if (currentPage < totalPages) {
+                currentPage++;
+                updatePageInfo();
+            }
+        }
+
+        function downloadPDF() {
+            window.open('../assets/projects/pdfs/tips-thesis.pdf', '_blank');
+        }
+    </script>
+</body>
+
+</html>
