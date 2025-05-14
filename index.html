@@ -19,6 +19,20 @@
             --bg-color: #ffffff;
             --border-color: #e5e7eb;
             --cursor-color: #2563eb;
+            --card-bg: #ffffff;
+            --section-bg: #f8fafc;
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #3b82f6;
+            --primary-color-rgb: 59, 130, 246;
+            --secondary-color: #60a5fa;
+            --text-color: #f3f4f6;
+            --bg-color: #111827;
+            --border-color: #374151;
+            --cursor-color: #60a5fa;
+            --card-bg: #1f2937;
+            --section-bg: #111827;
         }
 
         * {
@@ -183,12 +197,13 @@
             position: relative;
             overflow: hidden;
             border-radius: 0.5rem;
-            background: var(--bg-color);
+            background: var(--card-bg);
             border: 1px solid var(--border-color);
             transition: all 0.3s ease;
             height: 100%;
             display: flex;
             flex-direction: column;
+            color: var(--text-color);
         }
 
         .project-card:hover {
@@ -215,6 +230,19 @@
             flex-direction: column;
         }
 
+        .project-card-content h3 {
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .project-card-content p {
+            color: var(--text-color);
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+
         .project-link {
             display: inline-block;
             margin-top: auto;
@@ -234,11 +262,12 @@
         .skill-card {
             position: relative;
             overflow: hidden;
-            background: var(--bg-color);
+            background: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 0.5rem;
             padding: 1.5rem;
             transition: all 0.3s ease;
+            color: var(--text-color);
         }
 
         .skill-card::before {
@@ -525,8 +554,8 @@
         }
 
         .experience {
+            background: var(--section-bg);
             padding: 4rem 0;
-            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
         }
 
         .experience-grid {
@@ -538,7 +567,7 @@
 
         .experience-card {
             position: relative;
-            background: white;
+            background: var(--card-bg);
             border-radius: 1rem;
             padding: 2rem;
             transition: all 0.3s ease;
@@ -548,6 +577,7 @@
             align-items: center;
             text-align: center;
             border: 1px solid var(--border-color);
+            color: var(--text-color);
         }
 
         .experience-card:hover {
@@ -589,7 +619,7 @@
         }
 
         .experience-card h3 {
-            color: var(--primary-color);
+            color: var(--text-color);
             margin-bottom: 0.5rem;
             font-size: 1.25rem;
             font-weight: 600;
@@ -597,6 +627,7 @@
 
         .experience-card .role {
             color: var(--text-color);
+            opacity: 0.9;
             margin-bottom: 1rem;
             font-size: 1rem;
             font-weight: 500;
@@ -604,14 +635,14 @@
 
         .experience-card .duration {
             color: var(--text-color);
-            opacity: 0.8;
+            opacity: 0.9;
             font-size: 0.875rem;
             margin-bottom: 0.5rem;
         }
 
         .experience-card .location {
             color: var(--text-color);
-            opacity: 0.8;
+            opacity: 0.9;
             font-size: 0.875rem;
             margin-bottom: 1.5rem;
         }
@@ -625,13 +656,86 @@
         }
 
         .experience-card .skill-tag {
-            background: rgba(37, 99, 235, 0.1);
-            color: var(--primary-color);
+            background: rgba(var(--primary-color-rgb), 0.2);
+            color: var(--text-color);
             padding: 0.25rem 0.75rem;
             border-radius: 1rem;
             font-size: 0.75rem;
             font-weight: 500;
             transition: all 0.3s ease;
+        }
+
+        .experience-card:hover .skill-tag {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            cursor: pointer;
+            padding: 0.5rem;
+            font-size: 1.25rem;
+            transition: color 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            color: var(--primary-color);
+        }
+
+        .theme-toggle i {
+            transition: transform 0.3s ease;
+        }
+
+        .theme-toggle:hover i {
+            transform: rotate(30deg);
+        }
+
+        .competencies {
+            background: var(--section-bg);
+            padding: 4rem 0;
+        }
+
+        .projects {
+            background: var(--section-bg);
+            padding: 4rem 0;
+        }
+
+        .skill-card {
+            background: var(--card-bg);
+            color: var(--text-color);
+        }
+
+        .experience-card {
+            background: var(--card-bg);
+            color: var(--text-color);
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            color: var(--text-color);
+        }
+
+        .project-card-content h3 {
+            color: var(--text-color);
+        }
+
+        .project-card-content p {
+            color: var(--text-color);
+            opacity: 0.9;
+        }
+
+        .role,
+        .duration,
+        .location {
+            color: var(--text-color);
+            opacity: 0.9;
+        }
+
+        .skill-tag {
+            background: rgba(var(--primary-color-rgb), 0.2);
+            color: var(--text-color);
         }
 
         .experience-card:hover .skill-tag {
@@ -662,6 +766,9 @@
                     </div>
                 </div>
                 <a href="#contact">Contact</a>
+                <button class="theme-toggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                </button>
             </div>
             <button class="hamburger">
                 <span></span>
@@ -763,7 +870,7 @@
                     </div>
                 </a>
 
-                <a href="experience/pragmana-foundation.html" class="experience-card">
+                <a href="experience/pragmana.html" class="experience-card">
                     <img src="assets/logos/Pragmana Foundation Logo.png" alt="Pragmana Foundation Logo"
                         class="company-logo">
                     <h3>Pragmana Foundation</h3>
@@ -954,6 +1061,31 @@
 
             typeWriter();
         }
+
+        // Theme toggle functionality
+        const themeToggle = document.querySelector('.theme-toggle');
+        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+
+        // Check for saved theme preference or use system preference
+        const currentTheme = localStorage.getItem('theme') ||
+            (prefersDarkScheme.matches ? 'dark' : 'light');
+
+        if (currentTheme === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        }
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+
+            themeToggle.innerHTML = newTheme === 'dark' ?
+                '<i class="fas fa-sun"></i>' :
+                '<i class="fas fa-moon"></i>';
+        });
     </script>
 </body>
 
