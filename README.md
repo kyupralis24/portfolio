@@ -1,5 +1,8 @@
 # Viom Kapur's Portfolio Website
 
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/kyupralis24/portfolio)
+
+
 A modern, responsive portfolio website showcasing my professional experience, projects, and skills. Built with HTML, CSS, and JavaScript.
 
 ## Features
