@@ -456,7 +456,7 @@
         function updatePageInfo() {
             document.getElementById('current-page').textContent = currentPage;
             document.getElementById('total-pages').textContent = totalPages;
-            pdfViewer.src = `../assets/projects/pdfs/trezi-memo.pdf#page=${currentPage}&toolbar=0&view=FitH`;
+            pdfViewer.src = `../assets/projects/pdfs/trezi-presentation.pdf#page=${currentPage}&toolbar=0&view=FitH`;
         }
 
         function prevPage() {
@@ -474,7 +474,7 @@
         }
 
         function downloadPDF() {
-            window.open('../assets/projects/pdfs/trezi-memo.pdf', '_blank');
+            window.open('../assets/projects/pdfs/trezi-presentation.pdf', '_blank');
         }
 
         // Initialize page info

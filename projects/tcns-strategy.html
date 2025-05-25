@@ -384,7 +384,7 @@
             <div class="content-box">
                 <h2>Project Presentation</h2>
                 <div class="pdf-viewer">
-                    <iframe src="../assets/projects/pdfs/tcns-strategy.pdf#toolbar=0&view=FitH"
+                    <iframe src="../assets/projects/pdfs/tcns-strategy-presentation.pdf#toolbar=0&view=FitH"
                         frameborder="0"></iframe>
                 </div>
                 <div class="pdf-controls">
@@ -457,7 +457,7 @@
         function updatePageInfo() {
             document.getElementById('current-page').textContent = currentPage;
             document.getElementById('total-pages').textContent = totalPages;
-            pdfViewer.src = `../assets/projects/pdfs/tcns-strategy.pdf#page=${currentPage}&toolbar=0&view=FitH`;
+            pdfViewer.src = `../assets/projects/pdfs/tcns-strategy-presentation.pdf#page=${currentPage}&toolbar=0&view=FitH`;
         }
 
         function prevPage() {
@@ -475,7 +475,7 @@
         }
 
         function downloadPDF() {
-            window.open('../assets/projects/pdfs/tcns-strategy.pdf', '_blank');
+            window.open('../assets/projects/pdfs/tcns-strategy-presentation.pdf', '_blank');
         }
 
         // Initialize page info
