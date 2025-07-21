@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Analyser | Viom Kapur</title>
+    <meta name="description"
+        content="A stock analysis tool that uses an LSTM model for price prediction and a DNN for portfolio health assessment.">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Terminal-style coding project page styles */
+        .project-header {
+            text-align: center;
+            padding: 4rem 0;
+            background: linear-gradient(135deg, #1e1e1e, #2d2d2d);
+            color: #00ff00;
+            border-bottom: 3px solid #00ff00;
+        }
+
+        .project-icons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .project-icon {
+            font-size: 3rem;
+            color: #00ff00;
+            background: rgba(0, 255, 0, 0.1);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            transition: transform 0.3s ease;
+            border: 2px solid rgba(0, 255, 0, 0.2);
+        }
+
+        .project-icon:hover {
+            transform: scale(1.1);
+            background: #00ff00;
+            color: #000;
+            border-color: #00ff00;
+        }
+
+        .project-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 4rem 0;
+        }
+
+        .project-meta {
+            display: flex;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+            background: #1e1e1e;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            border: 1px solid #333;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+        }
+
+        .meta-item i {
+            color: #00ff00;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #00ff00;
+            text-decoration: none;
+            margin-top: 2rem;
+            transition: all 0.3s ease;
+            padding: 0.75rem 1.5rem;
+            background: #1e1e1e;
+            border: 2px solid #00ff00;
+            border-radius: 0.25rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .back-link:hover {
+            background: #00ff00;
+            color: #000;
+            transform: translateY(-2px);
+        }
+
+        .content-box {
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 0.5rem;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .content-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #00ff00, #00cc00, #009900);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .content-box:hover::before {
+            transform: scaleX(1);
+        }
+
+        .content-box:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-color: #00ff00;
+        }
+
+        .content-box h2 {
+            color: #00ff00;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #333;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .tech-tag {
+            background: rgba(0, 255, 0, 0.1);
+            color: #00ff00;
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            font-size: 0.875rem;
+            border: 1px solid rgba(0, 255, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .content-box:hover .tech-tag {
+            background: #00ff00;
+            color: #000;
+            border-color: #00ff00;
+        }
+
+        .code-snippet {
+            background: #1e1e1e;
+            border: 1px solid #333;
+            border-radius: 0.25rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            color: #00ff00;
+            position: relative;
+        }
+
+        .code-snippet::before {
+            content: '● ● ●';
+            position: absolute;
+            top: 0.5rem;
+            left: 1rem;
+            color: #ff5f56;
+            font-size: 0.75rem;
+        }
+
+        .code-snippet pre {
+            margin-top: 1.5rem;
+        }
+
+        .github-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: #333;
+            color: white;
+            text-decoration: none;
+            border-radius: 0.25rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin: 1rem 0;
+            border: 2px solid #333;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.875rem;
+        }
+
+        .github-link:hover {
+            background: #555;
+            border-color: #555;
+            transform: translateY(-2px);
+        }
+
+        .project-screenshot {
+            width: 100%;
+            height: auto;
+            border-radius: 0.5rem;
+            margin: 1rem auto;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 2px solid #333;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="../index.html" class="logo">VK</a>
+            <div class="nav-links">
+                <a href="../index.html#home">Home</a>
+                <a href="../index.html#about">About</a>
+                <a href="../index.html#projects">Projects</a>
+                <a href="../index.html#coding-projects">Coding Projects</a>
+                <a href="../index.html#contact">Contact</a>
+                <button class="theme-toggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+            <button class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Project Header -->
+    <section class="project-header">
+        <div class="container">
+            <h1>Stock Analyser</h1>
+            <p class="tagline">AI-Powered Stock Analysis and Portfolio Management Tool</p>
+            <div class="project-icons">
+                <i class="fas fa-brain project-icon" title="TensorFlow"></i>
+                <i class="fab fa-python project-icon" title="Python"></i>
+                <i class="fas fa-chart-line project-icon" title="Stock Analysis"></i>
+                <i class="fas fa-flask project-icon" title="Flask"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Content -->
+    <main class="project-content">
+        <div class="container">
+            <div class="project-meta">
+                <div class="meta-item">
+                    <i class="fas fa-calendar"></i>
+                    <span>2024</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-tag"></i>
+                    <span>AI & Financial Analysis</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-user"></i>
+                    <span>Personal Project</span>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h2>Project Overview</h2>
+                <p>This project is an advanced stock analysis tool that leverages machine learning to provide deep
+                    insights into stock performance and portfolio health. It features an LSTM model for price
+                    prediction, a DNN for portfolio health scoring, and a Flask-based API to serve the analysis to a
+                    real-time dashboard.</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">TensorFlow</span>
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Flask</span>
+                    <span class="tech-tag">Scikit-learn</span>
+                    <span class="tech-tag">Pandas</span>
+                    <span class="tech-tag">yfinance</span>
+                    <span class="tech-tag">NLTK</span>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h2>Key Features</h2>
+                <ul>
+                    <li>LSTM-based stock price prediction</li>
+                    <li>DNN model for portfolio health scoring</li>
+                    <li>Real-time data fetching with yfinance</li>
+                    <li>Sentiment analysis of financial news using NLTK</li>
+                    <li>Flask API for serving data to the frontend</li>
+                    <li>Comprehensive risk assessment and scenario analysis</li>
+                    <li>Automated trading recommendations</li>
+                </ul>
+            </div>
+
+            <div class="content-box">
+                <h2>Dashboard Analysis</h2>
+                <p>The project features a real-time dashboard that visualizes the analysis performed by the Python
+                    backend. Below are screenshots of the main components and an explanation of how the metrics are
+                    calculated.</p>
+
+                <h3 style="color: #00ff00; margin-top: 2rem; border-bottom: 1px solid #333; padding-bottom: 0.5rem;">
+                    Portfolio Overview</h3>
+                <img src="analyst1.jpeg" alt="Stock Analyser Dashboard Overview" class="project-screenshot"
+                    style="margin-top: 1rem;">
+                <p style="margin-top: 1rem;">This section provides a high-level overview of the portfolio's health and
+                    composition.</p>
+                <ul>
+                    <li style="margin-top: 0.5rem;"><strong>Portfolio Performance:</strong> A historical chart of the
+                        total portfolio value, tracked daily.</li>
+                    <li style="margin-top: 0.5rem;"><strong>Portfolio Health:</strong> A score generated by a Deep
+                        Neural Network (DNN) that takes overall performance, volatility, and sector concentration as
+                        inputs to provide a single health metric from 0-100.</li>
+                    <li style="margin-top: 0.5rem;"><strong>Risk Level:</strong> Assessed based on portfolio volatility
+                        and concentration in any single sector.</li>
+                    <li style="margin-top: 0.5rem;"><strong>Diversification Score:</strong> Calculated by measuring the
+                        deviation of sector allocations from an ideally balanced portfolio. A higher score indicates
+                        better diversification.</li>
+                    <li style="margin-top: 0.5rem;"><strong>Sector Exposure:</strong> A percentage breakdown of the
+                        portfolio's value by industry sector.</li>
+                </ul>
+
+                <h3 style="color: #00ff00; margin-top: 2rem; border-bottom: 1px solid #333; padding-bottom: 0.5rem;">
+                    Individual Stock Analysis</h3>
+                <img src="analyst2.jpeg" alt="Stock Analyser Individual Stock Analysis" class="project-screenshot"
+                    style="margin-top: 1rem;">
+                <p style="margin-top: 1rem;">Each stock in the portfolio is analyzed individually to provide granular
+                    insights and predictions.</p>
+                <ul>
+                    <li style="margin-top: 0.5rem;"><strong>Predicted Price:</strong> The future stock price is
+                        predicted using a Long Short-Term Memory (LSTM) neural network trained on historical price data.
+                    </li>
+                    <li style="margin-top: 0.5rem;"><strong>Potential Upside/Downside:</strong> This is the percentage
+                        difference between the LSTM model's predicted price and the current market price, indicating
+                        potential short-term movement.</li>
+                    <li style="margin-top: 0.5rem;"><strong>Value:</strong> The total current market value of the
+                        holding for that stock.</li>
+                </ul>
+            </div>
+
+            <div class="content-box">
+                <h2>Technical Implementation</h2>
+                <p>The project combines data fetching, model training, and a web server to deliver a complete stock
+                    analysis solution.</p>
+                <div class="code-snippet">
+                    <pre><code># Build and Train LSTM Model
+def build_lstm_model(time_steps):
+    model = tf.keras.Sequential([
+        tf.keras.layers.LSTM(64, return_sequences=True, input_shape=(time_steps, 1)),
+        tf.keras.layers.LSTM(32),
+        tf.keras.layers.Dense(1)
+    ])
+    model.compile(optimizer='adam', loss='mse')
+    return model</code></pre>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h2>Project Links</h2>
+                <a href="https://github.com/kyupralis24/analyst" target="_blank" class="github-link">
+                    <i class="fab fa-github"></i>
+                    View on GitHub
+                </a>
+            </div>
+
+            <a href="../index.html#coding-projects" class="back-link">
+                <i class="fas fa-arrow-left"></i>
+                Back to Coding Projects
+            </a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2024 Viom Kapur. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="https://www.linkedin.com/in/viom-kapur-93434621b/" target="_blank"
+                        rel="noopener noreferrer" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="mailto:viomkapur@gmail.com" aria-label="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../scripts/main.js"></script>
+</body>
+
+</html>

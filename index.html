@@ -1313,6 +1313,42 @@ def black_scholes(S, K, T, r, sigma):
                         </a>
                     </div>
                 </div>
+                <div class="coding-project-card">
+                    <div class="terminal-header">
+                        <span>stock-analyser.py</span>
+                    </div>
+                    <div class="project-header">
+                        <i class="fas fa-brain project-icon"></i>
+                        <span class="project-type">AI & Financial Analysis</span>
+                    </div>
+                    <div class="project-content">
+                        <h3>Stock Analyser</h3>
+                        <p>An AI-powered stock analysis tool that uses an LSTM model for price prediction and a DNN for
+                            portfolio health assessment.</p>
+                        <div class="code-preview">
+                            <pre><code># Build and Train LSTM Model
+def build_lstm_model(time_steps):
+    model = tf.keras.Sequential([
+        tf.keras.layers.LSTM(64, input_shape=(time_steps, 1)),
+        tf.keras.layers.Dense(1)
+    ])
+    model.compile(optimizer='adam', loss='mse')
+    return model</code></pre>
+                        </div>
+                        <div class="tech-stack">
+                            <span class="tech-tag">TensorFlow</span>
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Flask</span>
+                            <span class="tech-tag">Scikit-learn</span>
+                        </div>
+                    </div>
+                    <div class="project-actions">
+                        <a href="coding-projects/stock-analyser.html" class="project-link">
+                            <i class="fas fa-external-link-alt"></i>
+                            View Details
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
