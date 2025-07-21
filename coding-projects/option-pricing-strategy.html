@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Option Pricing and Derivative Strategy Design | Viom Kapur</title>
+    <meta name="description"
+        content="An analysis of a Bull Call Spread options trading strategy for Reliance Industries using Black-Scholes and Monte Carlo models.">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Terminal-style coding project page styles */
+        .project-header {
+            text-align: center;
+            padding: 4rem 0;
+            background: linear-gradient(135deg, #1e1e1e, #2d2d2d);
+            color: #00ff00;
+            border-bottom: 3px solid #00ff00;
+        }
+
+        .project-icons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .project-icon {
+            font-size: 3rem;
+            color: #00ff00;
+            background: rgba(0, 255, 0, 0.1);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            transition: transform 0.3s ease;
+            border: 2px solid rgba(0, 255, 0, 0.2);
+        }
+
+        .project-icon:hover {
+            transform: scale(1.1);
+            background: #00ff00;
+            color: #000;
+            border-color: #00ff00;
+        }
+
+        .project-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 4rem 0;
+        }
+
+        .project-meta {
+            display: flex;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+            background: #1e1e1e;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            border: 1px solid #333;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+        }
+
+        .meta-item i {
+            color: #00ff00;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #00ff00;
+            text-decoration: none;
+            margin-top: 2rem;
+            transition: all 0.3s ease;
+            padding: 0.75rem 1.5rem;
+            background: #1e1e1e;
+            border: 2px solid #00ff00;
+            border-radius: 0.25rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .back-link:hover {
+            background: #00ff00;
+            color: #000;
+            transform: translateY(-2px);
+        }
+
+        .content-box {
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 0.5rem;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .content-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #00ff00, #00cc00, #009900);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .content-box:hover::before {
+            transform: scaleX(1);
+        }
+
+        .content-box:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-color: #00ff00;
+        }
+
+        .content-box h2 {
+            color: #00ff00;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #333;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .tech-tag {
+            background: rgba(0, 255, 0, 0.1);
+            color: #00ff00;
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            font-size: 0.875rem;
+            border: 1px solid rgba(0, 255, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .content-box:hover .tech-tag {
+            background: #00ff00;
+            color: #000;
+            border-color: #00ff00;
+        }
+
+        .code-snippet {
+            background: #1e1e1e;
+            border: 1px solid #333;
+            border-radius: 0.25rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            color: #00ff00;
+            position: relative;
+        }
+
+        .code-snippet::before {
+            content: '● ● ●';
+            position: absolute;
+            top: 0.5rem;
+            left: 1rem;
+            color: #ff5f56;
+            font-size: 0.75rem;
+        }
+
+        .code-snippet pre {
+            margin-top: 1.5rem;
+        }
+
+        .demo-link,
+        .github-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            border-radius: 0.25rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin: 1rem 0;
+            border: 2px solid;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.875rem;
+        }
+
+        .demo-link {
+            background: #00ff00;
+            color: #000;
+            border-color: #00ff00;
+        }
+
+        .demo-link:hover {
+            background: transparent;
+            color: #00ff00;
+            transform: translateY(-2px);
+        }
+
+        .github-link {
+            background: #333;
+            color: white;
+            border-color: #333;
+        }
+
+        .github-link:hover {
+            background: #555;
+            border-color: #555;
+            transform: translateY(-2px);
+        }
+
+        .project-screenshot {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            border-radius: 0.5rem;
+            margin: 1rem auto;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 2px solid #333;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="../index.html" class="logo">VK</a>
+            <div class="nav-links">
+                <a href="../index.html#home">Home</a>
+                <a href="../index.html#about">About</a>
+                <a href="../index.html#projects">Projects</a>
+                <a href="../index.html#coding-projects">Coding Projects</a>
+                <a href="../index.html#contact">Contact</a>
+                <button class="theme-toggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+            <button class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Project Header -->
+    <section class="project-header">
+        <div class="container">
+            <h1>Option Pricing and Derivative Strategy Design</h1>
+            <p class="tagline">Financial Analytics with Python</p>
+            <div class="project-icons">
+                <i class="fas fa-calculator project-icon" title="Financial Modeling"></i>
+                <i class="fab fa-python project-icon" title="Python"></i>
+                <i class="fas fa-chart-pie project-icon" title="Data Analysis"></i>
+                <i class="fas fa-cogs project-icon" title="Algorithm"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Content -->
+    <main class="project-content">
+        <div class="container">
+            <div class="project-meta">
+                <div class="meta-item">
+                    <i class="fas fa-calendar"></i>
+                    <span>April 2025</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-tag"></i>
+                    <span>Financial Analytics</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-users"></i>
+                    <span>Team Project</span>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h2>Project Overview</h2>
+                <p>This project implements a Bull Call Spread options trading strategy analysis for Reliance Industries
+                    using real-time market data from NSE India. It features the implementation of the Black-Scholes and
+                    Monte Carlo pricing models from first principles to evaluate the option strategy.</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Numpy</span>
+                    <span class="tech-tag">Scipy</span>
+                    <span class="tech-tag">Pandas</span>
+                    <span class="tech-tag">Matplotlib</span>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h2>Key Features</h2>
+                <ul>
+                    <li>Real-time market data fetching from NSE CSV files</li>
+                    <li>Implementation of the Black-Scholes option pricing model</li>
+                    <li>Monte Carlo simulation for alternative option pricing</li>
+                    <li>Validation of Put-Call Parity</li>
+                    <li>Profit/Loss analysis and break-even point calculation</li>
+                    <li>Generation of a visual payoff diagram for the strategy</li>
+                </ul>
+            </div>
+
+            <div class="content-box">
+                <h2>Technical Implementation</h2>
+                <p>The core of the project is a Python script that processes financial data and applies mathematical
+                    models to analyze an options trading strategy.</p>
+                <div class="code-snippet">
+                    <pre><code>def black_scholes_call_put(S, K, T, r, sigma):
+    d1 = (np.log(S/K) + (r + 0.5 * sigma**2) * T) / (sigma * np.sqrt(T))
+    d2 = d1 - sigma * np.sqrt(T)
+    
+    call_price = S * norm.cdf(d1) - K * np.exp(-r * T) * norm.cdf(d2)
+    put_price = K * np.exp(-r * T) * norm.cdf(-d2) - S * norm.cdf(-d1)
+    
+    return call_price, put_price</code></pre>
+                </div>
+                <img src="bull_call_spread_payoff.png" alt="Bull Call Spread Payoff Diagram" class="project-screenshot">
+            </div>
+
+            <div class="content-box">
+                <h2>Strategy Analysis Results</h2>
+                <p>The analysis for a Bull Call Spread on Reliance Industries (buying a call at ₹1300 and selling one
+                    at ₹1310) yielded the following results:</p>
+                <ul>
+                    <li><strong>Break-even Point:</strong> ₹1305.60</li>
+                    <li><strong>Maximum Profit:</strong> ₹4.40</li>
+                    <li><strong>Maximum Loss:</strong> ₹5.60</li>
+                </ul>
+            </div>
+
+            <div class="content-box">
+                <h2>Project Links</h2>
+                <a href="https://kyupralis24.github.io/Financial-Analytics-Project-2/" target="_blank"
+                    class="demo-link">
+                    <i class="fas fa-external-link-alt"></i>
+                    View Project Website
+                </a>
+                <a href="https://github.com/kyupralis24/Financial-Analytics-Project-2" target="_blank"
+                    class="github-link">
+                    <i class="fab fa-github"></i>
+                    View on GitHub
+                </a>
+            </div>
+
+            <a href="../index.html#coding-projects" class="back-link">
+                <i class="fas fa-arrow-left"></i>
+                Back to Coding Projects
+            </a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2024 Viom Kapur. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="https://www.linkedin.com/in/viom-kapur-93434621b/" target="_blank"
+                        rel="noopener noreferrer" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="mailto:viomkapur@gmail.com" aria-label="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../scripts/main.js"></script>
+</body>
+
+</html>

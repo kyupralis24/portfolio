@@ -742,6 +742,241 @@
             background: var(--primary-color);
             color: white;
         }
+
+        /* Coding Projects Section Styles */
+        .coding-projects {
+            background: var(--section-bg);
+            padding: 4rem 0;
+        }
+
+        .section-description {
+            text-align: center;
+            color: var(--text-color);
+            opacity: 0.8;
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+        }
+
+        .coding-projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .coding-project-card {
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+            color: var(--text-color);
+            font-family: 'Courier New', monospace;
+        }
+
+        .coding-project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #00ff00, #00cc00, #009900);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .coding-project-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .coding-project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary-color);
+        }
+
+        .project-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .project-icon {
+            font-size: 2.5rem;
+            color: #00ff00;
+            background: rgba(0, 255, 0, 0.1);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(0, 255, 0, 0.2);
+        }
+
+        .coding-project-card:hover .project-icon {
+            transform: scale(1.1);
+            background: #00ff00;
+            color: #000;
+            border-color: #00ff00;
+        }
+
+        .project-type {
+            background: linear-gradient(45deg, #00ff00, #00cc00);
+            color: #000;
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .project-content h3 {
+            color: var(--text-color);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .project-content p {
+            color: var(--text-color);
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-stack .tech-tag {
+            background: rgba(0, 255, 0, 0.1);
+            color: #00ff00;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            border: 1px solid rgba(0, 255, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .coding-project-card:hover .tech-stack .tech-tag {
+            background: #00ff00;
+            color: #000;
+            border-color: #00ff00;
+        }
+
+        .project-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: #00ff00;
+            color: #000;
+            text-decoration: none;
+            border-radius: 0.25rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid #00ff00;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.875rem;
+        }
+
+        .project-link:hover {
+            background: transparent;
+            color: #00ff00;
+            transform: translateY(-2px);
+        }
+
+        .project-link.disabled {
+            background: var(--border-color);
+            color: var(--text-color);
+            opacity: 0.6;
+            cursor: not-allowed;
+            border-color: var(--border-color);
+        }
+
+        .project-link.disabled:hover {
+            background: var(--border-color);
+            transform: none;
+            color: var(--text-color);
+        }
+
+        .project-link i {
+            font-size: 0.875rem;
+        }
+
+        /* Terminal-style elements */
+        .terminal-header {
+            background: #2d2d2d;
+            color: #00ff00;
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem 0.25rem 0 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .terminal-header::before {
+            content: '●';
+            color: #ff5f56;
+        }
+
+        .terminal-header::after {
+            content: '●';
+            color: #ffbd2e;
+        }
+
+        .code-preview {
+            background: #1e1e1e;
+            border: 1px solid #333;
+            border-radius: 0.25rem;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+            color: #00ff00;
+            overflow-x: auto;
+        }
+
+        /* Responsive Design for Coding Projects */
+        @media (max-width: 768px) {
+            .coding-projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .coding-project-card {
+                padding: 1.5rem;
+            }
+
+            .project-header {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+        }
     </style>
 </head>
 
@@ -763,6 +998,7 @@
                         <a href="projects/tcns-strategy.html">TCNS Future Strategy</a>
                         <a href="projects/trezi-memo.html">Trezi Investment Memo</a>
                         <a href="projects/tips-thesis.html">Tips Music Investment Thesis</a>
+                        <a href="#coding-projects">Coding Projects</a>
                     </div>
                 </div>
                 <a href="#contact">Contact</a>
@@ -983,12 +1219,98 @@
                     </div>
                 </div>
                 <div class="project-card">
-                    <img src="assets/projects/thumbnails/tips-thesis-thumbnail.jpg" alt="Tips Music Investment Thesis"
+                    <img src="assets/logos/tips_logo.jpeg" alt="Tips Music Investment Thesis"
                         onerror="this.src='assets/projects/thumbnails/default-thumbnail.jpg'">
                     <div class="project-card-content">
                         <h3>Tips Music Investment Thesis</h3>
                         <p>Comprehensive analysis and recommendations</p>
                         <a href="projects/tips-thesis.html" class="project-link">View Project</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Coding Projects Section -->
+    <section id="coding-projects" class="coding-projects">
+        <div class="container">
+            <h2 class="section-title">Coding Projects</h2>
+            <p class="section-description">Explore my software development and programming projects, showcasing
+                technical skills and innovative solutions.</p>
+            <div class="coding-projects-grid">
+                <div class="coding-project-card">
+                    <div class="terminal-header">
+                        <span>portfolio-tracker.js</span>
+                    </div>
+                    <div class="project-header">
+                        <i class="fas fa-chart-line project-icon"></i>
+                        <span class="project-type">Financial Technology</span>
+                    </div>
+                    <div class="project-content">
+                        <h3>Stock Portfolio Tracker</h3>
+                        <p>A comprehensive stock portfolio tracking application with real-time updates, interactive
+                            visualizations, and Google Sheets integration for data management.</p>
+                        <div class="code-preview">
+                            <pre><code>// Key Features
+const features = {
+    realTimeUpdates: true,
+    dataVisualization: true,
+    googleSheetsAPI: true,
+    responsiveDesign: true
+};
+
+// Tech Stack
+const techStack = [
+    'JavaScript', 'Google Sheets API', 
+    'Data Visualization', 'RESTful APIs'
+];</code></pre>
+                        </div>
+                        <div class="tech-stack">
+                            <span class="tech-tag">JavaScript</span>
+                            <span class="tech-tag">Google Sheets API</span>
+                            <span class="tech-tag">Data Visualization</span>
+                            <span class="tech-tag">RESTful APIs</span>
+                        </div>
+                    </div>
+                    <div class="project-actions">
+                        <a href="coding-projects/stock-portfolio-tracker.html" class="project-link">
+                            <i class="fas fa-external-link-alt"></i>
+                            View Details
+                        </a>
+                    </div>
+                </div>
+                <div class="coding-project-card">
+                    <div class="terminal-header">
+                        <span>option-pricing.py</span>
+                    </div>
+                    <div class="project-header">
+                        <i class="fas fa-calculator project-icon"></i>
+                        <span class="project-type">Financial Analytics</span>
+                    </div>
+                    <div class="project-content">
+                        <h3>Option Pricing & Strategy</h3>
+                        <p>An analysis of a Bull Call Spread options trading strategy for Reliance Industries using
+                            Black-Scholes and Monte Carlo models.</p>
+                        <div class="code-preview">
+                            <pre><code># Black-Scholes Model
+def black_scholes(S, K, T, r, sigma):
+    d1 = (np.log(S/K) + (r + 0.5*sigma**2)*T) / (sigma*np.sqrt(T))
+    d2 = d1 - sigma * np.sqrt(T)
+    call = S * norm.cdf(d1) - K * np.exp(-r*T) * norm.cdf(d2)
+    return call</code></pre>
+                        </div>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Numpy</span>
+                            <span class="tech-tag">Pandas</span>
+                            <span class="tech-tag">Matplotlib</span>
+                        </div>
+                    </div>
+                    <div class="project-actions">
+                        <a href="coding-projects/option-pricing-strategy.html" class="project-link">
+                            <i class="fas fa-external-link-alt"></i>
+                            View Details
+                        </a>
                     </div>
                 </div>
             </div>
