@@ -12,14 +12,31 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
     <style>
         /* Terminal-style coding project page styles */
         .project-header {
+            position: relative;
+            overflow: hidden;
             text-align: center;
             padding: 4rem 0;
             background: linear-gradient(135deg, #1e1e1e, #2d2d2d);
             color: #00ff00;
             border-bottom: 3px solid #00ff00;
+        }
+
+        .parallax-wrap {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .parallax-layer {
+            position: absolute;
+            inset: 0;
+            will-change: transform;
+            transition: transform 0.1s linear;
+            pointer-events: none;
         }
 
         .project-icons {
@@ -50,6 +67,24 @@
             max-width: 900px;
             margin: 0 auto;
             padding: 4rem 0;
+        }
+
+        .meta-sticky {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: #111;
+            border-bottom: 1px solid #333;
+            padding: .5rem 1rem;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .meta-sticky a {
+            color: #00ff00;
+            text-decoration: none;
+            font-size: 0.875rem;
         }
 
         .project-meta {
@@ -188,28 +223,17 @@
             margin-top: 1.5rem;
         }
 
-        .github-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1.5rem;
-            background: #333;
-            color: white;
-            text-decoration: none;
-            border-radius: 0.25rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            margin: 1rem 0;
-            border: 2px solid #333;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-size: 0.875rem;
-        }
-
-        .github-link:hover {
-            background: #555;
-            border-color: #555;
-            transform: translateY(-2px);
+        .copy-btn {
+            position: absolute;
+            top: .5rem;
+            right: .5rem;
+            background: #00ff00;
+            color: #000;
+            border: none;
+            padding: .35rem .6rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: .75rem;
         }
 
         .project-screenshot {
@@ -220,6 +244,38 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             border: 2px solid #333;
             display: block;
+        }
+
+        .snap-row {
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            padding-bottom: .5rem;
+        }
+
+        .snap-row img {
+            scroll-snap-align: start;
+            flex: 0 0 auto;
+            width: min(900px, 90vw);
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(12px);
+            transition: opacity .35s ease, transform .35s ease;
+        }
+
+        .reveal.in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
         }
     </style>
 </head>
@@ -247,8 +303,22 @@
         </div>
     </nav>
 
+    <!-- Sticky Meta Bar -->
+    <div class="meta-sticky">
+        <span>2024</span>
+        <span>AI & Financial Analysis</span>
+        <a href="#overview">Overview</a>
+        <a href="#dashboard-analysis">Dashboard</a>
+        <a href="#tech">Tech</a>
+    </div>
+
     <!-- Project Header -->
-    <section class="project-header">
+    <section class="project-header parallax-wrap">
+        <div class="parallax-layer" id="pl-1"
+            style="opacity:.18; background: radial-gradient(600px 300px at 20% 10%, #00ff00 0%, transparent 60%);">
+        </div>
+        <div class="parallax-layer" id="pl-2"
+            style="opacity:.1; background: radial-gradient(800px 400px at 80% 0%, #00ff00 0%, transparent 60%);"></div>
         <div class="container">
             <h1>Stock Analyser</h1>
             <p class="tagline">AI-Powered Stock Analysis and Portfolio Management Tool</p>
@@ -264,7 +334,7 @@
     <!-- Project Content -->
     <main class="project-content">
         <div class="container">
-            <div class="project-meta">
+            <div class="project-meta reveal">
                 <div class="meta-item">
                     <i class="fas fa-calendar"></i>
                     <span>2024</span>
@@ -279,7 +349,7 @@
                 </div>
             </div>
 
-            <div class="content-box">
+            <div class="content-box reveal" id="overview">
                 <h2>Project Overview</h2>
                 <p>This project is an advanced stock analysis tool that leverages machine learning to provide deep
                     insights into stock performance and portfolio health. It features an LSTM model for price
@@ -296,7 +366,7 @@
                 </div>
             </div>
 
-            <div class="content-box">
+            <div class="content-box reveal">
                 <h2>Key Features</h2>
                 <ul>
                     <li>LSTM-based stock price prediction</li>
@@ -309,7 +379,7 @@
                 </ul>
             </div>
 
-            <div class="content-box">
+            <div class="content-box reveal" id="dashboard-analysis">
                 <h2>Dashboard Analysis</h2>
                 <p>The project features a real-time dashboard that visualizes the analysis performed by the Python
                     backend. Below are screenshots of the main components and an explanation of how the metrics are
@@ -317,8 +387,8 @@
 
                 <h3 style="color: #00ff00; margin-top: 2rem; border-bottom: 1px solid #333; padding-bottom: 0.5rem;">
                     Portfolio Overview</h3>
-                <img src="analyst1.jpeg" alt="Stock Analyser Dashboard Overview" class="project-screenshot"
-                    style="margin-top: 1rem;">
+                <img src="analysis1.jpeg" loading="lazy" decoding="async" alt="Stock Analyser Dashboard Overview"
+                    class="project-screenshot" style="margin-top: 1rem;">
                 <p style="margin-top: 1rem;">This section provides a high-level overview of the portfolio's health and
                     composition.</p>
                 <ul>
@@ -338,8 +408,8 @@
 
                 <h3 style="color: #00ff00; margin-top: 2rem; border-bottom: 1px solid #333; padding-bottom: 0.5rem;">
                     Individual Stock Analysis</h3>
-                <img src="analyst2.jpeg" alt="Stock Analyser Individual Stock Analysis" class="project-screenshot"
-                    style="margin-top: 1rem;">
+                <img src="analyst2.jpeg" loading="lazy" decoding="async" alt="Stock Analyser Individual Stock Analysis"
+                    class="project-screenshot" style="margin-top: 1rem;">
                 <p style="margin-top: 1rem;">Each stock in the portfolio is analyzed individually to provide granular
                     insights and predictions.</p>
                 <ul>
@@ -352,14 +422,22 @@
                     <li style="margin-top: 0.5rem;"><strong>Value:</strong> The total current market value of the
                         holding for that stock.</li>
                 </ul>
+
+                <h3 style="color: #00ff00; margin-top: 2rem;">Gallery</h3>
+                <div class="snap-row">
+                    <img src="analysis1.jpeg" loading="lazy" decoding="async" alt="Portfolio overview"
+                        class="project-screenshot">
+                    <img src="analyst2.jpeg" loading="lazy" decoding="async" alt="Stock analysis"
+                        class="project-screenshot">
+                </div>
             </div>
 
-            <div class="content-box">
+            <div class="content-box reveal" id="tech">
                 <h2>Technical Implementation</h2>
                 <p>The project combines data fetching, model training, and a web server to deliver a complete stock
                     analysis solution.</p>
                 <div class="code-snippet">
-                    <pre><code># Build and Train LSTM Model
+                    <pre><code class="language-python"># Build and Train LSTM Model
 def build_lstm_model(time_steps):
     model = tf.keras.Sequential([
         tf.keras.layers.LSTM(64, return_sequences=True, input_shape=(time_steps, 1)),
@@ -371,7 +449,7 @@ def build_lstm_model(time_steps):
                 </div>
             </div>
 
-            <div class="content-box">
+            <div class="content-box reveal">
                 <h2>Project Links</h2>
                 <a href="https://github.com/kyupralis24/analyst" target="_blank" class="github-link">
                     <i class="fab fa-github"></i>
@@ -379,12 +457,19 @@ def build_lstm_model(time_steps):
                 </a>
             </div>
 
-            <a href="../index.html#coding-projects" class="back-link">
+            <a href="../index.html#coding-projects" class="back-link reveal">
                 <i class="fas fa-arrow-left"></i>
                 Back to Coding Projects
             </a>
         </div>
     </main>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Screenshot preview"
+        style="position:fixed; inset:0; display:none; place-items:center; background:rgba(0,0,0,.7); z-index:9999;">
+        <img id="lightboxImg" alt=""
+            style="max-width: min(92vw,1200px); max-height: 88vh; border:2px solid #333; border-radius:8px;">
+    </div>
 
     <!-- Footer -->
     <footer>
@@ -404,6 +489,43 @@ def build_lstm_model(time_steps):
         </div>
     </footer>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+    <script>
+        // Copy buttons
+        document.querySelectorAll('.code-snippet pre').forEach(pre => {
+            const btn = document.createElement('button');
+            btn.className = 'copy-btn'; btn.textContent = 'Copy';
+            btn.onclick = async () => { await navigator.clipboard.writeText(pre.innerText.trim()); btn.textContent = 'Copied'; setTimeout(() => btn.textContent = 'Copy', 1000); };
+            pre.parentElement.appendChild(btn);
+        });
+
+        // Reveal on scroll
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in-view'); });
+        }, { threshold: 0.15 });
+        document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+        // Lightbox
+        const lb = document.getElementById('lightbox');
+        const lbImg = document.getElementById('lightboxImg');
+        document.querySelectorAll('.project-screenshot').forEach(img => {
+            img.style.cursor = 'zoom-in';
+            img.addEventListener('click', () => { lbImg.src = img.src; lbImg.alt = img.alt; lb.style.display = 'grid'; });
+        });
+        lb.addEventListener('click', () => lb.style.display = 'none');
+        window.addEventListener('keydown', e => { if (e.key === 'Escape') lb.style.display = 'none'; });
+
+        // Parallax layers
+        const l1 = document.getElementById('pl-1');
+        const l2 = document.getElementById('pl-2');
+        const onScroll = () => {
+            const y = window.scrollY || document.documentElement.scrollTop;
+            if (l1) l1.style.transform = `translateY(${y * 0.12}px)`;
+            if (l2) l2.style.transform = `translateY(${y * 0.2}px)`;
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+    </script>
     <script src="../scripts/main.js"></script>
 </body>
 

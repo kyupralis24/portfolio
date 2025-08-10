@@ -57,31 +57,16 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Intersection Observer for Scroll Animations
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.1
-    };
-
-    const observer = new IntersectionObserver((entries) => {
+    // Reveal-on-scroll animations
+    const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                observer.unobserve(entry.target);
+                entry.target.classList.add('in-view');
+                revealObserver.unobserve(entry.target);
             }
         });
-    }, observerOptions);
-
-    // Observe all sections
-    document.querySelectorAll('section').forEach(section => {
-        observer.observe(section);
-    });
-
-    // Add visible class to elements when they come into view
-    document.querySelectorAll('.skill-card, .project-card, .timeline-item').forEach(element => {
-        observer.observe(element);
-    });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal, .skill-card, .project-card, .experience-card').forEach(el => revealObserver.observe(el));
 
     // Parallax Effect for Hero Section
     const hero = document.querySelector('.hero');
@@ -160,4 +145,65 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
     });
+
+    // Navbar blur on scroll + back-to-top visibility + scroll progress
+    const navbar = document.querySelector('.navbar');
+    const backToTop = document.querySelector('.back-to-top');
+    let progressEl = document.querySelector('.scroll-progress');
+    if (!progressEl) {
+        progressEl = document.createElement('div');
+        progressEl.className = 'scroll-progress';
+        document.body.appendChild(progressEl);
+    }
+    const onScroll = () => {
+        const y = window.scrollY;
+        if (navbar) navbar.classList.toggle('scrolled', y > 10);
+        if (backToTop) backToTop.classList.toggle('show', y > 300);
+        const docH = document.documentElement.scrollHeight - window.innerHeight;
+        const pct = Math.max(0, Math.min(1, y / (docH || 1)));
+        progressEl.style.width = (pct * 100) + '%';
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    // Back to top handler
+    if (backToTop) {
+        backToTop.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // Inject background grid once
+    if (!document.querySelector('.bg-grid')) {
+        const grid = document.createElement('div');
+        grid.className = 'bg-grid';
+        document.body.appendChild(grid);
+    }
+
+    // Resume mode toggle (persisted)
+    const resumeToggle = document.getElementById('resumeToggle');
+    const setResume = (on) => {
+        document.documentElement.setAttribute('data-resume', on ? 'on' : 'off');
+        localStorage.setItem('resume', on ? 'on' : 'off');
+        if (on) document.querySelectorAll('.reveal').forEach(el => el.classList.add('in-view'));
+    };
+    const resumeOn = localStorage.getItem('resume') === 'on';
+    setResume(resumeOn);
+    if (resumeToggle) {
+        resumeToggle.addEventListener('click', () => setResume(document.documentElement.getAttribute('data-resume') !== 'on'));
+    }
+    // If a page doesn't have the button, add a small one near theme toggle
+    if (!resumeToggle) {
+        const navLinks = document.querySelector('.nav-links');
+        if (navLinks) {
+            const btn = document.createElement('button');
+            btn.id = 'resumeToggle';
+            btn.className = 'theme-toggle';
+            btn.setAttribute('aria-label', 'Resume mode');
+            btn.innerHTML = '<i class="fas fa-file-lines"></i>';
+            navLinks.appendChild(btn);
+            btn.addEventListener('click', () => setResume(document.documentElement.getAttribute('data-resume') !== 'on'));
+        }
+    }
 }); 

@@ -35,6 +35,233 @@
             --section-bg: #111827;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Subtle background grid */
+        .bg-grid {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -2;
+            opacity: .06;
+            background-image:
+                linear-gradient(to right, var(--text-color) 1px, transparent 1px),
+                linear-gradient(to bottom, var(--text-color) 1px, transparent 1px);
+            background-size: 40px 40px;
+            mix-blend-mode: soft-light;
+        }
+
+        /* Scroll progress bar */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            width: 0;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            z-index: 9999;
+            transform-origin: 0 50%;
+        }
+
+        /* Sticky nav blur on scroll */
+        .navbar {
+            backdrop-filter: none;
+            transition: background-color .25s ease, box-shadow .25s ease, backdrop-filter .25s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, .55);
+            backdrop-filter: saturate(140%) blur(8px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, .06);
+        }
+
+        [data-theme="dark"] .navbar.scrolled {
+            background: rgba(17, 24, 39, .55);
+        }
+
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            right: 1rem;
+            bottom: 1rem;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: #fff;
+            border: none;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, .18);
+            cursor: pointer;
+            z-index: 999;
+            transition: transform .2s ease, background .2s ease, opacity .2s ease;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-2px);
+            background: var(--secondary-color);
+        }
+
+        .back-to-top.show {
+            display: inline-flex;
+            opacity: 1;
+        }
+
+        /* Section title underline animation */
+        .section-title {
+            overflow: hidden;
+        }
+
+        .section-title::after {
+            transform: scaleX(0);
+            transform-origin: 0 50%;
+            transition: transform .45s ease;
+        }
+
+        .in-view.section-title::after {
+            transform: scaleX(1);
+        }
+
+        /* Scrollspy active state */
+        .nav-links a.active {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        /* Gradient borders for cards */
+        .project-card,
+        .experience-card,
+        .skill-card {
+            position: relative;
+        }
+
+        .project-card::after,
+        .experience-card::after,
+        .skill-card::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(var(--primary-color-rgb), .5), rgba(255, 255, 255, .1));
+            -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity .3s ease;
+            pointer-events: none;
+        }
+
+        .project-card:hover::after,
+        .experience-card:hover::after,
+        .skill-card:hover::after {
+            opacity: 1;
+        }
+
+        /* Wave separators */
+        .wave-sep {
+            display: block;
+            line-height: 0;
+        }
+
+        .wave-sep svg {
+            display: block;
+            width: 100%;
+            height: 64px;
+        }
+
+        /* Project filter chips */
+        .filter-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .5rem;
+            margin: .5rem 0 1.5rem;
+        }
+
+        .chip {
+            padding: .4rem .8rem;
+            border: 1px solid var(--border-color);
+            border-radius: 999px;
+            font-size: .85rem;
+            cursor: pointer;
+            background: var(--card-bg);
+            color: var(--text-color);
+            transition: all .2s ease;
+        }
+
+        .chip:hover {
+            transform: translateY(-1px);
+        }
+
+        .chip.active {
+            background: var(--primary-color);
+            color: #fff;
+            border-color: var(--primary-color);
+        }
+
+        /* Command palette */
+        .cmdk {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .5);
+            display: none;
+            place-items: center;
+            z-index: 10000;
+        }
+
+        .cmdk.open {
+            display: grid;
+        }
+
+        .cmdk-panel {
+            width: min(720px, 92vw);
+            background: var(--card-bg);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, .25);
+            overflow: hidden;
+        }
+
+        .cmdk-header {
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+            padding: .75rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .cmdk-header input {
+            width: 100%;
+            padding: .6rem .75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        .cmdk-list {
+            max-height: 50vh;
+            overflow: auto;
+        }
+
+        .cmdk-item {
+            padding: .75rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: .75rem;
+            cursor: pointer;
+        }
+
+        .cmdk-item:hover {
+            background: rgba(var(--primary-color-rgb), .08);
+        }
+
         * {
             cursor: none;
         }
@@ -977,10 +1204,551 @@
                 align-items: flex-start;
             }
         }
+
+        /* Parallax + reveal + metrics enhancements */
+        .parallax-wrap {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .parallax-layer {
+            position: absolute;
+            inset: 0;
+            will-change: transform;
+            transition: transform 0.1s linear;
+            pointer-events: none;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(12px);
+            transition: opacity .35s ease, transform .35s ease;
+        }
+
+        .reveal.in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .scroll-cue {
+            position: absolute;
+            bottom: 1.25rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #fff;
+            opacity: .8;
+            font-size: .875rem;
+        }
+
+        .scroll-cue::after {
+            content: '▾';
+            display: block;
+            text-align: center;
+            margin-top: .25rem;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: .4;
+                transform: translateY(0);
+            }
+
+            50% {
+                opacity: 1;
+                transform: translateY(4px);
+            }
+        }
+
+        .metrics {
+            background: var(--bg-color);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .metrics .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1.5rem;
+            padding: 2rem 0;
+        }
+
+        .metric {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: .5rem;
+            padding: 1.25rem;
+            text-align: center;
+            transition: transform .25s ease, box-shadow .25s ease;
+        }
+
+        .metric:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 14px rgba(0, 0, 0, .06);
+        }
+
+        .metric .num {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .metric .label {
+            margin-top: .25rem;
+            font-size: .875rem;
+            color: var(--text-color);
+            opacity: .8;
+        }
+
+        /* Coffee pop animation */
+        .metric.coffee {
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .coffee-pop {
+            position: fixed;
+            font-size: 28px;
+            pointer-events: none;
+            z-index: 9999;
+            animation: floatUp 1.2s ease-out forwards;
+            filter: drop-shadow(0 6px 10px rgba(0, 0, 0, .25));
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translate(-50%, 0) scale(.85);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            70% {
+                transform: translate(-50%, -80px) scale(1.05);
+                opacity: .95;
+            }
+
+            100% {
+                transform: translate(-50%, -120px) scale(1.05);
+                opacity: 0;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+
+        /* Tech marquee */
+        .tech-marquee {
+            position: relative;
+            overflow: hidden;
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+
+        .tech-row {
+            display: flex;
+            gap: .75rem;
+            padding: .5rem 0;
+            white-space: nowrap;
+            animation: marquee 18s linear infinite;
+        }
+
+        .tech-pill {
+            padding: .45rem .8rem;
+            border-radius: 999px;
+            border: 1px solid var(--border-color);
+            background: var(--card-bg);
+            color: var(--text-color);
+            font-size: .85rem;
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* Highlights Glass Boxes */
+        .highlights {
+            background: var(--section-bg);
+            padding: 2rem 0;
+        }
+
+        .highlight-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .glass-box {
+            position: relative;
+            backdrop-filter: blur(8px);
+            background: linear-gradient(to bottom right, rgba(255, 255, 255, .08), rgba(255, 255, 255, .02));
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
+            padding: 1.25rem;
+            transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+            overflow: hidden;
+        }
+
+        .glass-box::after {
+            content: "";
+            position: absolute;
+            inset: -1px;
+            border-radius: 1rem;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(var(--primary-color-rgb), .4), rgba(255, 255, 255, .06));
+            -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: .6;
+        }
+
+        .glass-box:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 24px rgba(0, 0, 0, .08);
+            border-color: var(--primary-color);
+        }
+
+        .glass-box h3 {
+            margin: .25rem 0 .5rem;
+        }
+
+        .glass-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: rgba(var(--primary-color-rgb), .1);
+            color: var(--primary-color);
+            border: 1px solid var(--border-color);
+        }
+
+        /* Skills grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.25rem;
+            margin-top: 1rem;
+        }
+
+        /* CTA band */
+        .cta-band {
+            background: linear-gradient(135deg, rgba(var(--primary-color-rgb), .08), transparent);
+            padding: 2rem 0;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .cta-inner {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .cta-actions a {
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            padding: .7rem 1.2rem;
+            border-radius: .5rem;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: #fff;
+        }
+
+        .btn-ghost {
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+        }
+
+        /* Interactive Timeline */
+        .timeline {
+            position: relative;
+            overflow-x: auto;
+            display: grid;
+            grid-auto-flow: column;
+            grid-auto-columns: minmax(260px, 340px);
+            gap: 1.25rem;
+            padding: 1rem 0 2rem;
+            scroll-snap-type: x mandatory;
+        }
+
+        .timeline::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .timeline::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 999px;
+        }
+
+        .timeline-item {
+            scroll-snap-align: start;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
+            padding: 1rem;
+            position: relative;
+            color: var(--text-color);
+            transition: transform .2s ease;
+        }
+
+        .timeline-item:hover {
+            transform: translateY(-3px);
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 1rem;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(var(--primary-color-rgb), .35), transparent);
+            pointer-events: none;
+        }
+
+        .timeline-controls {
+            display: flex;
+            gap: .5rem;
+            justify-content: flex-end;
+        }
+
+        .tl-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            border-radius: .5rem;
+            padding: .4rem .6rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .timeline {
+                grid-auto-columns: minmax(240px, 80%);
+            }
+        }
+
+        /* Project search */
+        .project-search {
+            display: flex;
+            gap: .5rem;
+            align-items: center;
+            margin-bottom: .75rem;
+        }
+
+        .project-search input {
+            width: 100%;
+            padding: .6rem .75rem;
+            border: 1px solid var(--border-color);
+            border-radius: .5rem;
+            background: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        /* Case Study Modal */
+        .modal {
+            position: fixed;
+            inset: 0;
+            display: none;
+            place-items: center;
+            background: rgba(0, 0, 0, .55);
+            z-index: 10000;
+        }
+
+        .modal.open {
+            display: grid;
+        }
+
+        .modal-panel {
+            width: min(900px, 94vw);
+            max-height: 90vh;
+            overflow: auto;
+            background: var(--card-bg);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 24px 70px rgba(0, 0, 0, .35);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: .9rem 1.1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .modal-tabs {
+            display: flex;
+            gap: .5rem;
+            padding: .5rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .modal-tabs button {
+            padding: .45rem .8rem;
+            border-radius: .5rem;
+            border: 1px solid var(--border-color);
+            background: var(--bg-color);
+            color: var(--text-color);
+            cursor: pointer;
+        }
+
+        .modal-tabs button.active {
+            background: var(--primary-color);
+            color: #fff;
+            border-color: var(--primary-color);
+        }
+
+        .modal-body {
+            padding: 1rem;
+        }
+
+        .modal-close {
+            background: transparent;
+            border: none;
+            color: var(--text-color);
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        /* Theme Presets Panel */
+        .preset-panel {
+            position: absolute;
+            right: 0;
+            top: 100%;
+            margin-top: .5rem;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: .5rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, .12);
+            padding: .5rem;
+            display: none;
+        }
+
+        .preset-panel.show {
+            display: block;
+        }
+
+        .preset-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: .4rem;
+            padding: .35rem .6rem;
+            border: 1px solid var(--border-color);
+            border-radius: 999px;
+            cursor: pointer;
+            background: var(--bg-color);
+            color: var(--text-color);
+            font-size: .85rem;
+            margin: .2rem;
+        }
+
+        /* Theme preset variables */
+        [data-preset="terminal"] {
+            --primary-color: #00ff7f;
+            --primary-color-rgb: 0, 255, 127;
+            --secondary-color: #00cc66;
+        }
+
+        [data-preset="minimal"] {
+            --primary-color: #111827;
+            --primary-color-rgb: 17, 24, 39;
+            --secondary-color: #6b7280;
+        }
+
+        [data-theme="dark"][data-preset="minimal"] {
+            --primary-color: #e5e7eb;
+            --primary-color-rgb: 229, 231, 235;
+            --secondary-color: #9ca3af;
+        }
+
+        /* Resume mode (dense, print-friendly) */
+        [data-resume="on"] * {
+            animation: none !important;
+            transition: none !important;
+        }
+
+        [data-resume="on"] .parallax-layer,
+        [data-resume="on"] .scroll-cue,
+        [data-resume="on"] .bg-grid,
+        [data-resume="on"] .cursor {
+            display: none !important;
+        }
+
+        [data-resume="on"] .hero {
+            min-height: auto;
+            padding: 2rem 0;
+        }
+
+        [data-resume="on"] .metric:hover,
+        [data-resume="on"] .project-card:hover,
+        [data-resume="on"] .experience-card:hover,
+        [data-resume="on"] .skill-card:hover {
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        [data-resume="on"] .project-card::after,
+        [data-resume="on"] .experience-card::after,
+        [data-resume="on"] .skill-card::after {
+            opacity: 0 !important;
+        }
+
+        [data-resume="on"] .reveal {
+            opacity: 1 !important;
+            transform: none !important;
+        }
+
+        @media print {
+
+            nav,
+            .navbar,
+            .scroll-progress,
+            .bg-grid,
+            .metrics,
+            .tech-marquee,
+            .cta-band,
+            .back-to-top {
+                display: none !important;
+            }
+
+            body {
+                background: #fff;
+                color: #000;
+            }
+
+            a {
+                color: #000;
+                text-decoration: none;
+            }
+        }
     </style>
 </head>
 
 <body>
+    <div class="bg-grid" aria-hidden="true"></div>
+    <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
     <div class="cursor"></div>
 
     <!-- Navigation -->
@@ -1005,6 +1773,17 @@
                 <button class="theme-toggle" aria-label="Toggle dark mode">
                     <i class="fas fa-moon"></i>
                 </button>
+                <div style="position:relative; display:inline-block;">
+                    <button id="presetToggle" class="theme-toggle" aria-label="Theme presets"><i
+                            class="fas fa-palette"></i></button>
+                    <div id="presetPanel" class="preset-panel">
+                        <span class="preset-chip" data-preset="classic">Classic</span>
+                        <span class="preset-chip" data-preset="terminal">Terminal</span>
+                        <span class="preset-chip" data-preset="minimal">Minimal</span>
+                    </div>
+                </div>
+                <button id="resumeToggle" class="theme-toggle" aria-label="Resume mode"><i
+                        class="fas fa-file-lines"></i></button>
             </div>
             <button class="hamburger">
                 <span></span>
@@ -1015,24 +1794,67 @@
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="hero">
+    <section id="home" class="hero parallax-wrap">
+        <div class="parallax-layer" id="hero-l1"
+            style="opacity:.18; background: radial-gradient(600px 300px at 20% 10%, rgba(37,99,235,.8) 0%, transparent 60%);">
+        </div>
+        <div class="parallax-layer" id="hero-l2"
+            style="opacity:.1; background: radial-gradient(800px 400px at 80% 0%, rgba(29,78,216,.7) 0%, transparent 60%);">
+        </div>
         <div class="container">
             <div class="hero-content">
                 <img src="assets/profile/viom-photo.jpg" alt="Viom Kapur" class="profile-photo">
                 <h1>Viom Kapur</h1>
                 <p class="tagline">Computer Science & Finance Student | AI Automation Engineer | Consultant</p>
                 <div class="company-logos">
-                    <img src="assets/logos/itc-logo.png" alt="ITC Limited Logo" class="company-logo">
+                    <img src="assets/logos/itc-logo.png" alt="ITC Limited Logo" class="company-logo" loading="lazy"
+                        decoding="async">
                     <img src="assets/logos/Pragmana Foundation Logo.png" alt="Pragmana Foundation Logo"
-                        class="company-logo">
-                    <img src="assets/logos/images-2.png" alt="ITC Limited Logo" class="company-logo">
+                        class="company-logo" loading="lazy" decoding="async">
+                    <img src="assets/logos/images-2.png" alt="ITC Limited Logo" class="company-logo" loading="lazy"
+                        decoding="async">
+                </div>
+                <div class="scroll-cue">Scroll</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Metrics Strip -->
+    <section class="metrics">
+        <div class="container">
+            <div class="metrics-grid">
+                <div class="metric reveal">
+                    <div class="num" data-count-to="12">0</div>
+                    <div class="label">Projects</div>
+                </div>
+                <div class="metric reveal">
+                    <div class="num" data-count-to="6">0</div>
+                    <div class="label">Domains</div>
+                </div>
+                <div class="metric reveal">
+                    <div class="num" data-count-to="4">0</div>
+                    <div class="label">Internships</div>
+                </div>
+                <div class="metric reveal coffee" id="coffeeMetric" role="button" tabindex="0"
+                    aria-label="Add a coffee">
+                    <div style="font-size:20px; line-height:1; margin-bottom:.25rem;">☕️</div>
+                    <div class="num" id="coffeeNum" data-count-to="100">0</div>
+                    <div class="label">Coffee Cups</div>
                 </div>
             </div>
         </div>
     </section>
 
+    <div class="wave-sep" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 64" preserveAspectRatio="none">
+            <path
+                d="M0,32L80,26.7C160,21,320,11,480,16C640,21,800,43,960,45.3C1120,48,1280,32,1360,24L1440,16L1440,64L1360,64C1280,64,1120,64,960,64C800,64,640,64,480,64C320,64,160,64,80,64L0,64Z"
+                fill="currentColor" opacity="0.08"></path>
+        </svg>
+    </div>
+
     <!-- About and Portfolio Section -->
-    <section class="about-portfolio">
+    <section id="about" class="about-portfolio">
         <div class="container">
             <div class="about-portfolio-grid">
                 <!-- About Section -->
@@ -1082,8 +1904,16 @@
         </div>
     </section>
 
+    <div class="wave-sep" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 64" preserveAspectRatio="none">
+            <path
+                d="M0,32L80,26.7C160,21,320,11,480,16C640,21,800,43,960,45.3C1120,48,1280,32,1360,24L1440,16L1440,64L1360,64C1280,64,1120,64,960,64C800,64,640,64,480,64C320,64,160,64,80,64L0,64Z"
+                fill="currentColor" opacity="0.08"></path>
+        </svg>
+    </div>
+
     <!-- Key Competencies -->
-    <section class="competencies">
+    <section id="competencies" class="competencies">
         <div class="container">
             <h2 class="section-title">Key Competencies</h2>
             <div class="skills-grid">
@@ -1127,10 +1957,19 @@
         </div>
     </section>
 
+    <div class="wave-sep" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 64" preserveAspectRatio="none">
+            <path
+                d="M0,32L80,26.7C160,21,320,11,480,16C640,21,800,43,960,45.3C1120,48,1280,32,1360,24L1440,16L1440,64L1360,64C1280,64,1120,64,960,64C800,64,640,64,480,64C320,64,160,64,80,64L0,64Z"
+                fill="currentColor" opacity="0.08"></path>
+        </svg>
+    </div>
+
     <!-- Professional Experience -->
-    <section class="experience">
+    <section id="experience" class="experience">
         <div class="container">
             <h2 class="section-title">Professional Experience</h2>
+
             <div class="experience-grid">
                 <a href="experience/bdo.html" class="experience-card">
                     <img src="assets/logos/bdo-logo.jpg" alt="BDO Logo" class="company-logo">
@@ -1175,12 +2014,76 @@
         </div>
     </section>
 
+    <div class="wave-sep" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 64" preserveAspectRatio="none">
+            <path
+                d="M0,32L80,26.7C160,21,320,11,480,16C640,21,800,43,960,45.3C1120,48,1280,32,1360,24L1440,16L1440,64L1360,64C1280,64,1120,64,960,64C800,64,640,64,480,64C320,64,160,64,80,64L0,64Z"
+                fill="currentColor" opacity="0.08"></path>
+        </svg>
+    </div>
+
+    <!-- Tech Stack Marquee -->
+    <section aria-label="Technologies" class="competencies" style="padding-top:0;">
+        <div class="container">
+            <div class="tech-marquee reveal">
+                <div class="tech-row">
+                    <span class="tech-pill">Python</span>
+                    <span class="tech-pill">JavaScript</span>
+                    <span class="tech-pill">TensorFlow</span>
+                    <span class="tech-pill">scikit-learn</span>
+                    <span class="tech-pill">Pandas</span>
+                    <span class="tech-pill">NumPy</span>
+                    <span class="tech-pill">SQL</span>
+                    <span class="tech-pill">PostgreSQL</span>
+                    <span class="tech-pill">AWS</span>
+                    <span class="tech-pill">Docker</span>
+                    <span class="tech-pill">FastAPI</span>
+                    <span class="tech-pill">Flask</span>
+                    <span class="tech-pill">React</span>
+                    <span class="tech-pill">Node.js</span>
+                    <span class="tech-pill">Chart.js</span>
+                    <!-- duplicate for loop -->
+                    <span class="tech-pill">Python</span>
+                    <span class="tech-pill">JavaScript</span>
+                    <span class="tech-pill">TensorFlow</span>
+                    <span class="tech-pill">scikit-learn</span>
+                    <span class="tech-pill">Pandas</span>
+                    <span class="tech-pill">NumPy</span>
+                    <span class="tech-pill">SQL</span>
+                    <span class="tech-pill">PostgreSQL</span>
+                    <span class="tech-pill">AWS</span>
+                    <span class="tech-pill">Docker</span>
+                    <span class="tech-pill">FastAPI</span>
+                    <span class="tech-pill">Flask</span>
+                    <span class="tech-pill">React</span>
+                    <span class="tech-pill">Node.js</span>
+                    <span class="tech-pill">Chart.js</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Projects Section -->
     <section id="projects" class="projects">
         <div class="container">
             <h2 class="section-title">Featured Projects</h2>
+            <div class="project-search" aria-label="Search projects">
+                <i class="fas fa-search"></i>
+                <input type="search" id="projectSearch" placeholder="Search projects by title or tech..."
+                    aria-label="Search projects">
+            </div>
+            <div class="filter-chips" id="projectFilters" aria-label="Project filters">
+                <button class="chip active" data-filter="all">All</button>
+                <button class="chip" data-filter="ai">AI/ML</button>
+                <button class="chip" data-filter="finance">Finance</button>
+                <button class="chip" data-filter="strategy">Strategy</button>
+                <button class="chip" data-filter="product">Product</button>
+            </div>
             <div class="projects-grid">
-                <div class="project-card">
+                <div class="project-card" data-tags="ai finance"
+                    data-overview="XGBoost fraud detection improving recall" data-tech="Python, XGBoost, Pandas"
+                    data-results="46% detection, 267x improvement"
+                    data-lessons="Feature engineering and class imbalance handling">
                     <span class="tech-indicator">AI/ML</span>
                     <img src="assets/projects/thumbnails/credit-card-fraud-thumbnail.jpg"
                         alt="Credit Card Fraud Detection"
@@ -1189,47 +2092,84 @@
                         <h3>Credit Card Fraud Detection</h3>
                         <p>XGBoost model with 46% detection rate (267x improvement)</p>
                         <a href="projects/credit-card-fraud.html" class="project-link">View Project</a>
+                        <a href="#" class="project-link" data-case>Case Study</a>
                     </div>
                 </div>
-                <div class="project-card">
+                <div class="project-card" data-tags="finance strategy"
+                    data-overview="Equity research and thesis for DLF" data-tech="Excel, Valuation, Research"
+                    data-results="Investment recommendation with risk analysis"
+                    data-lessons="Assumption sensitivity and scenario planning">
                     <img src="assets/projects/thumbnails/dlf-analysis-thumbnail.jpg" alt="DLF Financial Analysis"
                         onerror="this.src='assets/projects/thumbnails/default-thumbnail.jpg'">
                     <div class="project-card-content">
                         <h3>DLF Financial Analysis</h3>
                         <p>Comprehensive investment thesis for DLF</p>
                         <a href="projects/dlf-analysis.html" class="project-link">View Project</a>
+                        <a href="#" class="project-link" data-case>Case Study</a>
                     </div>
                 </div>
-                <div class="project-card">
+                <div class="project-card" data-tags="strategy product"
+                    data-overview="Corporate strategy evaluation for TCNS" data-tech="Strategy, FP&A"
+                    data-results="Roadmap and measurable KPIs" data-lessons="Stakeholder alignment and execution risk">
                     <img src="assets/projects/thumbnails/tcns-strategy-thumbnail.jpg" alt="TCNS Future Strategy"
                         onerror="this.src='assets/projects/thumbnails/default-thumbnail.jpg'">
                     <div class="project-card-content">
                         <h3>TCNS Future Strategy Report</h3>
                         <p>Financial evaluation and investment recommendations</p>
                         <a href="projects/tcns-strategy.html" class="project-link">View Project</a>
+                        <a href="#" class="project-link" data-case>Case Study</a>
                     </div>
                 </div>
-                <div class="project-card">
+                <div class="project-card" data-tags="finance product" data-overview="VC-style memo with market sizing"
+                    data-tech="Research, Modeling" data-results="Memo and recommended stance"
+                    data-lessons="Signal vs noise in early-stage data">
                     <img src="assets/projects/thumbnails/trezi-memo-thumbnail.jpg" alt="Trezi Investment Memo"
                         onerror="this.src='assets/projects/thumbnails/default-thumbnail.jpg'">
                     <div class="project-card-content">
                         <h3>Trezi Investment Memo</h3>
                         <p>Investment thesis for YourNest Capital</p>
                         <a href="projects/trezi-memo.html" class="project-link">View Project</a>
+                        <a href="#" class="project-link" data-case>Case Study</a>
                     </div>
                 </div>
-                <div class="project-card">
+                <div class="project-card" data-tags="finance" data-overview="Public markets deep-dive into music label"
+                    data-tech="Valuation, Channel checks" data-results="Buy/Sell view with thesis score"
+                    data-lessons="Behavioral biases and conviction management">
                     <img src="assets/logos/tips_logo.jpeg" alt="Tips Music Investment Thesis"
                         onerror="this.src='assets/projects/thumbnails/default-thumbnail.jpg'">
                     <div class="project-card-content">
                         <h3>Tips Music Investment Thesis</h3>
                         <p>Comprehensive analysis and recommendations</p>
                         <a href="projects/tips-thesis.html" class="project-link">View Project</a>
+                        <a href="#" class="project-link" data-case>Case Study</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- CTA Band -->
+    <section class="cta-band">
+        <div class="container">
+            <div class="cta-inner">
+                <h3 style="margin:0;">Have an idea? Let's build it.</h3>
+                <div class="cta-actions">
+                    <a href="mailto:viomkapur@gmail.com" class="btn-primary"><i
+                            class="fas fa-paper-plane"></i>Contact</a>
+                    <a href="https://www.linkedin.com/in/viom-kapur-93434621b/" target="_blank" rel="noopener"
+                        class="btn-ghost"><i class="fab fa-linkedin"></i>LinkedIn</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="wave-sep" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 64" preserveAspectRatio="none">
+            <path
+                d="M0,32L80,26.7C160,21,320,11,480,16C640,21,800,43,960,45.3C1120,48,1280,32,1360,24L1440,16L1440,64L1360,64C1280,64,1120,64,960,64C800,64,640,64,480,64C320,64,160,64,80,64L0,64Z"
+                fill="currentColor" opacity="0.08"></path>
+        </svg>
+    </div>
 
     <!-- Coding Projects Section -->
     <section id="coding-projects" class="coding-projects">
@@ -1353,6 +2293,14 @@ def build_lstm_model(time_steps):
         </div>
     </section>
 
+    <div class="wave-sep" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 64" preserveAspectRatio="none">
+            <path
+                d="M0,32L80,26.7C160,21,320,11,480,16C640,21,800,43,960,45.3C1120,48,1280,32,1360,24L1440,16L1440,64L1360,64C1280,64,1120,64,960,64C800,64,640,64,480,64C320,64,160,64,80,64L0,64Z"
+                fill="currentColor" opacity="0.08"></path>
+        </svg>
+    </div>
+
     <!-- Contact Section -->
     <section id="contact" class="contact">
         <div class="container">
@@ -1406,6 +2354,31 @@ def build_lstm_model(time_steps):
             </div>
         </div>
     </footer>
+
+    <!-- Back to top -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
+
+    <!-- Case Study Modal -->
+    <div class="modal" id="caseModal" role="dialog" aria-modal="true" aria-label="Project case study">
+        <div class="modal-panel">
+            <div class="modal-header">
+                <h3 id="caseTitle" style="margin:0;">Case Study</h3>
+                <button class="modal-close" id="caseClose" aria-label="Close"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-tabs">
+                <button data-tab="overview" class="active">Overview</button>
+                <button data-tab="tech">Tech</button>
+                <button data-tab="results">Results</button>
+                <button data-tab="lessons">Lessons</button>
+            </div>
+            <div class="modal-body">
+                <div data-panel="overview"></div>
+                <div data-panel="tech" style="display:none;"></div>
+                <div data-panel="results" style="display:none;"></div>
+                <div data-panel="lessons" style="display:none;"></div>
+            </div>
+        </div>
+    </div>
 
     <script src="scripts/main.js"></script>
     <script>
@@ -1483,6 +2456,287 @@ def build_lstm_model(time_steps):
                 '<i class="fas fa-sun"></i>' :
                 '<i class="fas fa-moon"></i>';
         });
+
+        // Reveal-on-scroll animations
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                } else {
+                    entry.target.classList.remove('in-view');
+                }
+            });
+        }, { threshold: 0.15 });
+        const observeRevealTargets = () => {
+            document.querySelectorAll('.reveal, .metrics .metric').forEach(el => revealObserver.observe(el));
+        };
+        observeRevealTargets();
+        // Ensure cards animate on scroll in/out and are observed
+        document.querySelectorAll('.experience-card, .project-card, .skill-card').forEach(el => el.classList.add('reveal'));
+        observeRevealTargets();
+
+        // Parallax hero layers
+        const hl1 = document.getElementById('hero-l1');
+        const hl2 = document.getElementById('hero-l2');
+        const onScrollParallax = () => {
+            const y = window.scrollY || document.documentElement.scrollTop;
+            if (hl1) hl1.style.transform = `translateY(${y * 0.12}px)`;
+            if (hl2) hl2.style.transform = `translateY(${y * 0.2}px)`;
+        };
+        window.addEventListener('scroll', onScrollParallax, { passive: true });
+
+        // Navbar blur + progress bar + back-to-top
+        const navbar = document.querySelector('.navbar');
+        const scrollProgress = document.getElementById('scrollProgress');
+        const backToTop = document.getElementById('backToTop');
+        const onScrollCommon = () => {
+            const y = window.scrollY || document.documentElement.scrollTop;
+            const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const p = h > 0 ? (y / h) : 0;
+            if (scrollProgress) { scrollProgress.style.width = `${p * 100}%`; }
+            if (navbar) { navbar.classList.toggle('scrolled', y > 8); }
+            if (backToTop) { backToTop.classList.toggle('show', y > 600); }
+        };
+        window.addEventListener('scroll', onScrollCommon, { passive: true });
+        onScrollCommon();
+        if (backToTop) backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+        // Metrics counters
+        const animateCount = (el) => {
+            const target = parseInt(el.getAttribute('data-count-to'), 10) || 0;
+            const duration = 1200; // ms
+            const start = performance.now();
+            const startVal = 0;
+            const step = (t) => {
+                const p = Math.min(1, (t - start) / duration);
+                const ease = p < 0.5 ? 2 * p * p : -1 + (4 - 2 * p) * p; // easeInOutQuad
+                const val = Math.floor(startVal + (target - startVal) * ease);
+                el.textContent = val;
+                if (p < 1) requestAnimationFrame(step);
+            };
+            requestAnimationFrame(step);
+        };
+        const countObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    animateCount(entry.target);
+                    countObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.6 });
+        // Coffee count persistence
+        const coffeeNumEl = document.getElementById('coffeeNum');
+        if (coffeeNumEl) {
+            const storedCoffee = parseInt(localStorage.getItem('coffee_count') || coffeeNumEl.getAttribute('data-count-to') || '100', 10);
+            coffeeNumEl.setAttribute('data-count-to', String(storedCoffee));
+        }
+        document.querySelectorAll('.metric .num').forEach(el => countObserver.observe(el));
+
+        // Coffee click: increment + animation
+        function animateCoffeePop(x, y) {
+            const pop = document.createElement('div');
+            pop.className = 'coffee-pop';
+            pop.style.left = x + 'px';
+            pop.style.top = y + 'px';
+            pop.textContent = '☕️';
+            document.body.appendChild(pop);
+            pop.addEventListener('animationend', () => pop.remove());
+        }
+        function animateCountFromTo(el, from, to, ms = 600) {
+            const start = performance.now();
+            const step = (t) => {
+                const p = Math.min(1, (t - start) / ms);
+                const ease = p < 0.5 ? 2 * p * p : -1 + (4 - 2 * p) * p; // easeInOutQuad
+                el.textContent = String(Math.floor(from + (to - from) * ease));
+                if (p < 1) requestAnimationFrame(step);
+            };
+            requestAnimationFrame(step);
+        }
+        const coffeeMetric = document.getElementById('coffeeMetric');
+        if (coffeeMetric && coffeeNumEl) {
+            const addCoffee = (evt) => {
+                const current = parseInt(coffeeNumEl.textContent || '0', 10);
+                const next = current + 1;
+                localStorage.setItem('coffee_count', String(next));
+                animateCountFromTo(coffeeNumEl, current, next);
+                const rect = coffeeMetric.getBoundingClientRect();
+                const x = evt.clientX || (rect.left + rect.width / 2);
+                const y = (evt.clientY || (rect.top + rect.height / 2)) + window.scrollY;
+                animateCoffeePop(x, y);
+            };
+            coffeeMetric.addEventListener('click', addCoffee);
+            coffeeMetric.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); addCoffee(e); } });
+        }
+
+        // Progressive/lazy load project thumbnails (fallback for missing attributes)
+        document.querySelectorAll('.projects .project-card img, .company-logos img').forEach(img => {
+            if (!img.hasAttribute('loading')) img.setAttribute('loading', 'lazy');
+            if (!img.hasAttribute('decoding')) img.setAttribute('decoding', 'async');
+        });
+
+        // Card tilt micro-interactions
+        const tiltify = (card) => {
+            const maxTilt = 6, perspective = 900;
+            const enter = () => card.style.transition = 'transform .12s ease';
+            const move = (e) => {
+                const r = card.getBoundingClientRect();
+                const px = (e.clientX - r.left) / r.width - 0.5;
+                const py = (e.clientY - r.top) / r.height - 0.5;
+                const rx = (+py * maxTilt).toFixed(2);
+                const ry = (-px * maxTilt).toFixed(2);
+                card.style.transform = `perspective(${perspective}px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+            };
+            const leave = () => { card.style.transition = 'transform .25s ease'; card.style.transform = 'perspective(900px) rotateX(0) rotateY(0)'; };
+            card.addEventListener('mouseenter', enter);
+            card.addEventListener('mousemove', move);
+            card.addEventListener('mouseleave', leave);
+        };
+        document.querySelectorAll('.project-card, .experience-card, .skill-card').forEach(tiltify);
+
+        // Scrollspy: update nav active link
+        const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+        const sections = ['home', 'about', 'competencies', 'experience', 'projects', 'coding-projects', 'contact']
+            .map(id => document.getElementById(id)).filter(Boolean);
+        const spy = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.id;
+                    navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === `#${id}`));
+                }
+            })
+        }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+        sections.forEach(sec => spy.observe(sec));
+
+        // Project filter chips
+        const chips = document.querySelectorAll('#projectFilters .chip');
+        const projectCards = document.querySelectorAll('#projects .project-card');
+        chips.forEach(chip => chip.addEventListener('click', () => {
+            chips.forEach(c => c.classList.remove('active'));
+            chip.classList.add('active');
+            const f = chip.dataset.filter;
+            projectCards.forEach(card => {
+                const tags = (card.dataset.tags || '').split(/\s+/);
+                const show = f === 'all' || tags.includes(f);
+                card.style.display = show ? '' : 'none';
+            });
+        }));
+
+        // Skills Radar Chart
+        const radarEl = document.getElementById('skillsRadar');
+        if (radarEl && window.Chart) {
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            const grid = isDark ? 'rgba(255,255,255,.1)' : 'rgba(0,0,0,.08)';
+            const text = getComputedStyle(document.documentElement).getPropertyValue('--text-color').trim();
+            new Chart(radarEl, {
+                type: 'radar',
+                data: {
+                    labels: ['Programming', 'Data', 'AI', 'Web', 'DB/AWS', 'Product', 'Finance'], datasets: [{
+                        label: 'Proficiency', data: [90, 85, 80, 88, 75, 82, 78],
+                        fill: true, backgroundColor: 'rgba(37,99,235,0.15)', borderColor: 'rgba(37,99,235,0.8)', pointBackgroundColor: 'rgba(37,99,235,0.9)'
+                    }]
+                },
+                options: { responsive: true, scales: { r: { angleLines: { color: grid }, grid: { color: grid }, pointLabels: { color: text }, suggestedMin: 0, suggestedMax: 100 } }, plugins: { legend: { display: false } } }
+            });
+        }
+
+        // Command Palette
+        const cmdk = document.createElement('div');
+        cmdk.className = 'cmdk';
+        cmdk.innerHTML = `<div class="cmdk-panel"><div class="cmdk-header"><i class="fas fa-search"></i><input type="text" id="cmdkInput" placeholder="Search sections and projects (Esc to close)"></div><div class="cmdk-list" id="cmdkList"></div></div>`;
+        document.body.appendChild(cmdk);
+        const entries = [
+            { label: 'Home', href: '#home' },
+            { label: 'About', href: '#about' },
+            { label: 'Key Competencies', href: '#competencies' },
+            { label: 'Experience', href: '#experience' },
+            { label: 'Featured Projects', href: '#projects' },
+            { label: 'Coding Projects', href: '#coding-projects' },
+            { label: 'Contact', href: '#contact' },
+            { label: 'Project: Credit Card Fraud Detection', href: 'projects/credit-card-fraud.html' },
+            { label: 'Project: DLF Financial Analysis', href: 'projects/dlf-analysis.html' },
+            { label: 'Project: TCNS Strategy', href: 'projects/tcns-strategy.html' },
+            { label: 'Project: Trezi Memo', href: 'projects/trezi-memo.html' },
+        ];
+        const palette = {
+            open() { cmdk.classList.add('open'); setTimeout(() => document.getElementById('cmdkInput').focus(), 10); render(''); },
+            close() { cmdk.classList.remove('open'); },
+        };
+        function render(query) {
+            const q = (query || '').toLowerCase();
+            const list = document.getElementById('cmdkList');
+            list.innerHTML = '';
+            entries.filter(e => e.label.toLowerCase().includes(q)).forEach(e => {
+                const item = document.createElement('div'); item.className = 'cmdk-item'; item.textContent = e.label; item.addEventListener('click', () => { palette.close(); const href = e.href; if (href.startsWith('#')) { location.hash = href; } else { location.href = href; } }); list.appendChild(item);
+            });
+        }
+        document.addEventListener('keydown', (e) => {
+            const isInput = ['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName) || document.activeElement.isContentEditable;
+            if ((e.key === 'k' && (e.metaKey || e.ctrlKey)) || (!isInput && e.key === '/')) { e.preventDefault(); palette.open(); }
+            if (e.key === 'Escape' && cmdk.classList.contains('open')) palette.close();
+        });
+        cmdk.addEventListener('click', (e) => { if (e.target === cmdk) palette.close(); });
+        cmdk.querySelector('#cmdkInput').addEventListener('input', (e) => render(e.target.value));
+
+        // Case Study Modal logic
+        const modal = document.getElementById('caseModal');
+        const closeBtn = document.getElementById('caseClose');
+        function openCase(card) {
+            document.getElementById('caseTitle').textContent = card.querySelector('h3')?.textContent || 'Case Study';
+            const setPanel = (name, text) => { const pane = modal.querySelector(`[data-panel="${name}"]`); if (pane) pane.textContent = text || '—'; };
+            setPanel('overview', card.dataset.overview || '—');
+            setPanel('tech', card.dataset.tech || (card.dataset.tags || '').replace(/\s+/g, ', ') || '—');
+            setPanel('results', card.dataset.results || '—');
+            setPanel('lessons', card.dataset.lessons || '—');
+            modal.classList.add('open');
+            activateTab('overview');
+        }
+        function activateTab(tab) {
+            modal.querySelectorAll('.modal-tabs button').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+            modal.querySelectorAll('[data-panel]').forEach(p => p.style.display = (p.getAttribute('data-panel') === tab ? 'block' : 'none'));
+        }
+        modal.querySelectorAll('.modal-tabs button').forEach(btn => btn.addEventListener('click', () => activateTab(btn.dataset.tab)));
+        closeBtn.addEventListener('click', () => modal.classList.remove('open'));
+        modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('open'); });
+        document.querySelectorAll('[data-case]').forEach(btn => btn.addEventListener('click', (e) => { e.preventDefault(); const card = btn.closest('.project-card'); if (card) openCase(card); }));
+
+        // Timeline controls and wheel horiz-scroll
+        const tl = document.getElementById('expTimeline');
+        const ctlBtns = document.querySelectorAll('.tl-btn');
+        ctlBtns.forEach(b => b.addEventListener('click', () => { const dir = parseInt(b.dataset.dir, 10) || 1; tl.scrollBy({ left: dir * 360, behavior: 'smooth' }); }));
+        if (tl) tl.addEventListener('wheel', (e) => { if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) { e.preventDefault(); tl.scrollBy({ left: e.deltaY, behavior: 'smooth' }); } }, { passive: false });
+
+        // Theme presets
+        const presetToggle = document.getElementById('presetToggle');
+        const presetPanel = document.getElementById('presetPanel');
+        const setPreset = (p) => { document.documentElement.setAttribute('data-preset', p); localStorage.setItem('preset', p); };
+        document.addEventListener('click', (e) => { if (e.target === presetToggle) { presetPanel.classList.toggle('show'); } else if (!presetPanel.contains(e.target)) { presetPanel.classList.remove('show'); } });
+        presetPanel.querySelectorAll('.preset-chip').forEach(ch => ch.addEventListener('click', () => { setPreset(ch.dataset.preset); presetPanel.classList.remove('show'); }));
+        (function initPreset() { const stored = localStorage.getItem('preset'); if (stored) setPreset(stored); })();
+
+        // Project search
+        const projectSearch = document.getElementById('projectSearch');
+        function applyProjectFilters(tag, query) {
+            const q = (query || '').toLowerCase().trim();
+            projectCards.forEach(card => {
+                const tags = (card.dataset.tags || '').split(/\s+/);
+                const title = (card.querySelector('h3')?.textContent || '').toLowerCase();
+                const tech = (card.dataset.tech || card.dataset.overview || '').toLowerCase();
+                const byTag = !tag || tag === 'all' || tags.includes(tag);
+                const byQuery = !q || title.includes(q) || tech.includes(q);
+                card.style.display = (byTag && byQuery) ? '' : 'none';
+            });
+        }
+        if (projectSearch) projectSearch.addEventListener('input', () => {
+            const active = document.querySelector('#projectFilters .chip.active')?.dataset.filter || 'all';
+            applyProjectFilters(active, projectSearch.value);
+        });
+
+        // Resume mode toggle
+        const resumeToggle = document.getElementById('resumeToggle');
+        const setResume = (on) => { document.documentElement.setAttribute('data-resume', on ? 'on' : 'off'); localStorage.setItem('resume', on ? 'on' : 'off'); if (on) document.querySelectorAll('.reveal').forEach(el => el.classList.add('in-view')); };
+        const initResume = localStorage.getItem('resume') === 'on';
+        setResume(initResume);
+        resumeToggle.addEventListener('click', () => { const now = document.documentElement.getAttribute('data-resume') !== 'on'; setResume(now); });
     </script>
 </body>
 

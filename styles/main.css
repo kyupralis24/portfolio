@@ -286,6 +286,149 @@ p {
     background-color: var(--section-bg);
 }
 
+/* Navbar blur on scroll */
+.navbar.scrolled {
+    backdrop-filter: saturate(180%) blur(10px);
+    background-color: rgba(255, 255, 255, 0.7);
+    border-bottom: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] .navbar.scrolled {
+    background-color: rgba(17, 24, 39, 0.6);
+}
+
+/* Scroll progress bar */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    width: 0;
+    background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+    z-index: 10000;
+}
+
+/* Background grid overlay */
+.bg-grid {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+    background-size: 24px 24px;
+}
+
+[data-theme="dark"] .bg-grid {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+}
+
+/* Reveal on scroll */
+.reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity .6s ease, transform .6s ease;
+}
+
+.reveal.in-view {
+    opacity: 1;
+    transform: none;
+}
+
+/* Back to top */
+.back-to-top {
+    position: fixed;
+    right: 1rem;
+    bottom: 1.25rem;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    color: #fff;
+    background: var(--primary-color);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, .15);
+    z-index: 10000;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    transition: opacity .25s ease, transform .25s ease, visibility .25s ease;
+}
+
+.back-to-top.show {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+}
+
+.back-to-top:hover {
+    background: var(--secondary-color);
+}
+
+/* Section title underline accent */
+.section-title {
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -10px;
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+    border-radius: 999px;
+}
+
+/* Resume mode (dense, print-friendly) */
+[data-resume="on"] * {
+    animation: none !important;
+    transition: none !important;
+}
+
+[data-resume="on"] .bg-grid,
+[data-resume="on"] .scroll-progress,
+[data-resume="on"] .tech-marquee,
+[data-resume="on"] .back-to-top {
+    display: none !important;
+}
+
+[data-resume="on"] .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+}
+
+[data-resume="on"] .project-card:hover,
+[data-resume="on"] .experience-card:hover,
+[data-resume="on"] .skill-card:hover {
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+@media print {
+
+    nav,
+    .navbar,
+    .scroll-progress,
+    .bg-grid,
+    .back-to-top {
+        display: none !important;
+    }
+
+    body {
+        background: #fff;
+        color: #000;
+    }
+
+    a {
+        color: #000;
+        text-decoration: none;
+    }
+}
+
 .timeline {
     position: relative;
     max-width: 800px;
